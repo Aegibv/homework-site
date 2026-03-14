@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settimana 1</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body class="week-page">
+
+  <div class="week-wrapper">
+
+    <a href="../home.html" class="back-link">← Torna alla home</a>
+
+    <div class="content-card">
+
+      <h1>Homework - Settimana 1</h1>
+
+      <p>
+        Fare il primo programma JavaScript che scrive un messaggio colorato,
+        rimpiazzando il testo di un DIV già presente nella pagina.
+        Il programma deve essere inserito in un file separato usando JavaScript esterno.
+        Inoltre dimostrare l'algoritmo di Welford.
+      </p>
+
+      <!-- RISULTATO -->
+      <div class="homework-box">
+
+        <h2>Risultato</h2>
+
+        <div id="messaggio">
+          Questo testo verrà sostituito da JavaScript.
+        </div>
+
+      </div>
+
+      <!-- CODICE HTML -->
+      <div class="homework-box">
+
+        <h2>Codice HTML</h2>
+
+<pre><code>
+&lt;div id="messaggio"&gt;
+  Questo testo verrà sostituito da JavaScript.
+&lt;/div&gt;
+
+&lt;script src="../script.js"&gt;&lt;/script&gt;
+</code></pre>
+
+      </div>
+
+      <!-- CODICE JAVASCRIPT -->
+      <div class="homework-box">
+
+        <h2>Codice JavaScript</h2>
+
+<pre><code>
+// script.js
+
+const div = document.getElementById("messaggio");
+
+if (div) {
+  div.textContent = "Ciao! Questo messaggio è scritto con JavaScript";
+
+  div.style.fontWeight = "bold";
+  div.style.fontSize = "24px";
+
+  div.style.background = "linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet)";
+  div.style.webkitBackgroundClip = "text";
+  div.style.webkitTextFillColor = "transparent";
+  div.style.color = "transparent";
+}
+</code></pre>
+
+      </div>
+
+      <!-- DOCUMENTO PDF (COME IMMAGINI) -->
+      <div class="homework-box">
+
+        <h2>Documento PDF</h2>
+
+        <p>Dimostrazione dell'algoritmo di Welford.</p>
+
+        <img src="../materiali/settimanematerialiwelford-pag1.png"
+             alt="Dimostrazione algoritmo di Welford - pagina 1"
+             style="width:100%; margin-bottom:20px; border-radius:8px;">
+
+        <img src="../materiali/settimanematerialiwelford-pag2.png"
+             alt="Dimostrazione algoritmo di Welford - pagina 2"
+             style="width:100%; border-radius:8px;">
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="../script.js"></script>
+
+</body>
+</html>
