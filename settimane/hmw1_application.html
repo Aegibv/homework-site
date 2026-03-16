@@ -1,0 +1,52 @@
+<!-- RISULTATO -->
+<div class="homework-box">
+
+<h2>Risultato</h2>
+
+<div id="messaggio">
+Questo testo verrà sostituito da JavaScript.
+</div>
+
+</div>
+
+
+<!-- CODICE HTML -->
+<div class="homework-box">
+
+<h2>Codice HTML</h2>
+
+<pre><code>
+&lt;div id="messaggio"&gt;
+Questo testo verrà sostituito da JavaScript.
+&lt;/div&gt;
+
+&lt;script src="../script.js"&gt;&lt;/script&gt;
+</code></pre>
+
+</div>
+
+
+<!-- CODICE JAVASCRIPT -->
+<div class="homework-box">
+
+<h2>Codice JavaScript</h2>
+
+<pre><code>
+// script.js
+
+const div = document.getElementById("messaggio");
+
+if (div) {
+  div.textContent = "Ciao! Questo messaggio è scritto con JavaScript";
+
+  div.style.fontWeight = "bold";
+  div.style.fontSize = "24px";
+
+  div.style.background = "linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet)";
+  div.style.webkitBackgroundClip = "text";
+  div.style.webkitTextFillColor = "transparent";
+  div.style.color = "transparent";
+}
+</code></pre>
+
+</div>
