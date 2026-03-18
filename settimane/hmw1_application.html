@@ -1,79 +1,181 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Homework 1 - Application</title>
   <link rel="stylesheet" href="../style.css">
+  <style>
+    .app-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #0d4f8b;
+      margin-bottom: 12px;
+    }
+
+    .app-subtitle {
+      font-size: 1.15rem;
+      color: #245b7d;
+      line-height: 1.5;
+      border-top: 2px solid #b7d7ea;
+      padding-top: 14px;
+      margin-bottom: 28px;
+    }
+
+    .demo-box {
+      background: #e8edf5;
+      border: 1px solid #bfd7ea;
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.05);
+    }
+
+    .message-box {
+      background: #d9edf8;
+      border: 2px solid #a9d3ec;
+      border-radius: 18px;
+      padding: 28px;
+      font-size: 1.2rem;
+      color: #144d70;
+      margin-bottom: 26px;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+
+    .action-btn {
+      border: none;
+      border-radius: 18px;
+      padding: 14px 24px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(90deg, #1d6f9f, #36a8e0);
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-2px);
+      opacity: 0.95;
+    }
+
+    .action-btn.reset {
+      background: #7d91ae;
+    }
+
+    .code-toggle {
+      background: #d9edf8;
+      border: 1px solid #a9d3ec;
+      border-radius: 14px;
+      padding: 16px 18px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #0d629b;
+      margin-bottom: 14px;
+    }
+
+    .code-panel {
+      display: none;
+    }
+
+    .code-panel pre {
+      background: #0f1720;
+      color: #d8e6f3;
+      padding: 18px;
+      border-radius: 16px;
+      overflow-x: auto;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin: 0;
+    }
+  </style>
 </head>
 
 <body class="week-page">
+  <div class="week-wrapper">
+    <a href="settimana1.html" class="back-link">← Torna a Homework 1</a>
 
-<div class="week-wrapper">
+    <div class="content-card">
+      <h1 class="app-title">Application: Manipolazione del DOM</h1>
 
-<a href="settimana1.html" class="back-link">← Torna a Homework 1</a>
+      <p class="app-subtitle">
+        Scrivere un primo programma in JS che modifichi mediante JS il contenuto
+        di un DIV o altro elemento. Linkare il programma come file .js esterno.
+      </p>
 
-<div class="content-card">
+      <div class="demo-box">
+        <div id="messaggio" class="message-box">
+          Questo è il testo originale del DIV. Usa i bottoni qui sotto per modificarmi!
+        </div>
 
-<h1>Homework 1 - Application</h1>
+        <div class="button-row">
+          <button class="action-btn" onclick="cambiaTesto()">Cambia Testo</button>
+          <button class="action-btn" onclick="cambiaStile()">Cambia Stile</button>
+          <button class="action-btn" onclick="toggleMessaggio()">Nascondi / Mostra</button>
+          <button class="action-btn reset" onclick="resetMessaggio()">Reset</button>
+        </div>
 
-<!-- RISULTATO -->
-<div class="homework-box">
+        <div class="code-toggle" onclick="toggleCode()">
+          ▶ 👀 Clicca qui per ispezionare il codice JavaScript
+        </div>
 
-<h2>Risultato</h2>
-
-<div id="messaggio">
-Questo testo verrà sostituito da JavaScript.
-</div>
-
-</div>
-
-
-<!-- CODICE HTML -->
-<div class="homework-box">
-
-<h2>Codice HTML</h2>
-
-<pre><code>
-&lt;div id="messaggio"&gt;
-Questo testo verrà sostituito da JavaScript.
-&lt;/div&gt;
-
-&lt;script src="../script.js"&gt;&lt;/script&gt;
-</code></pre>
-
-</div>
-
-
-<!-- CODICE JAVASCRIPT -->
-<div class="homework-box">
-
-<h2>Codice JavaScript</h2>
-
-<pre><code>
-// script.js
+        <div id="codePanel" class="code-panel">
+<pre><code>// script.js
 
 const div = document.getElementById("messaggio");
 
-if (div) {
-  div.textContent = "Ciao! Questo messaggio è scritto con JavaScript";
-
-  div.style.fontWeight = "bold";
-  div.style.fontSize = "24px";
-
-  div.style.background = "linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet)";
-  div.style.webkitBackgroundClip = "text";
-  div.style.webkitTextFillColor = "transparent";
-  div.style.color = "transparent";
+function cambiaTesto() {
+  if (div) {
+    div.textContent = "Ciao! Questo messaggio è stato modificato con JavaScript.";
+  }
 }
-</code></pre>
 
-</div>
+function cambiaStile() {
+  if (div) {
+    div.style.fontWeight = "bold";
+    div.style.fontSize = "24px";
+    div.style.background = "linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet)";
+    div.style.webkitBackgroundClip = "text";
+    div.style.webkitTextFillColor = "transparent";
+    div.style.color = "transparent";
+  }
+}
 
-</div>
-</div>
+function toggleMessaggio() {
+  if (div) {
+    div.style.display = div.style.display === "none" ? "block" : "none";
+  }
+}
 
-<script src="../script.js"></script>
+function resetMessaggio() {
+  if (div) {
+    div.style.display = "block";
+    div.textContent = "Questo è il testo originale del DIV. Usa i bottoni qui sotto per modificarmi!";
+    div.style.fontWeight = "normal";
+    div.style.fontSize = "1.2rem";
+    div.style.background = "#d9edf8";
+    div.style.webkitBackgroundClip = "initial";
+    div.style.webkitTextFillColor = "initial";
+    div.style.color = "#144d70";
+  }
+}</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <script src="../script.js"></script>
+  <script>
+    function toggleCode() {
+      const panel = document.getElementById("codePanel");
+      panel.style.display = panel.style.display === "block" ? "none" : "block";
+    }
+  </script>
 </body>
 </html>
