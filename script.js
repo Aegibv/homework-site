@@ -67,9 +67,22 @@ function resetMessaggio() {
 function generaDatiRandom(n = 20, min = -50, max = 50) {
   const dati = [];
 
-  for (let i = 0; i < n; i++) {
-    const valore = Math.random() * (max - min) + min;
+  // metà negativi
+  for (let i = 0; i < Math.floor(n / 2); i++) {
+    const valore = -(Math.random() * Math.abs(min));
     dati.push(Number(valore.toFixed(3)));
+  }
+
+  // metà positivi
+  for (let i = Math.floor(n / 2); i < n; i++) {
+    const valore = Math.random() * max;
+    dati.push(Number(valore.toFixed(3)));
+  }
+
+  // mescola i valori
+  for (let i = dati.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [dati[i], dati[j]] = [dati[j], dati[i]];
   }
 
   return dati;
