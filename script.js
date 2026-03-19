@@ -64,7 +64,7 @@ function resetMessaggio() {
 // HOMEWORK 2
 // --------------------
 
-function generaDatiRandom(n = 20, min = -50, max = 50) {
+function generaDatiRandom(n = 20, min = 1, max = 100) {
   const dati = [];
 
   for (let i = 0; i < n; i++) {
