@@ -59,3 +59,111 @@ function resetMessaggio() {
     div.style.color = "#144d70";
   }
 }
+
+// --------------------
+// HOMEWORK 2
+// --------------------
+
+function generaDatiRandom(n = 20) {
+  const dati = [];
+  for (let i = 0; i < n; i++) {
+    dati.push(Math.floor(Math.random() * 100) + 1);
+  }
+  return dati;
+}
+
+function mediaNaive(arr) {
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i];
+  }
+  return sum / arr.length;
+}
+
+function varianzaNaive(arr) {
+  const media = mediaNaive(arr);
+  let sum = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    sum += (arr[i] - media) ** 2;
+  }
+
+  return sum / arr.length;
+}
+
+function mediaVarianzaOnline(arr) {
+  let n = 0;
+  let media = 0;
+  let M2 = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    n++;
+    const x = arr[i];
+    const delta = x - media;
+    media += delta / n;
+    const delta2 = x - media;
+    M2 += delta * delta2;
+  }
+
+  return {
+    media: media,
+    varianza: M2 / n
+  };
+}
+
+function eseguiHomework2() {
+  const dati = generaDatiRandom();
+
+  const mediaN = mediaNaive(dati);
+  const varN = varianzaNaive(dati);
+
+  const online = mediaVarianzaOnline(dati);
+
+  const out = document.getElementById("output-hmw2");
+
+  out.innerHTML = `
+    <p><strong>Dati:</strong> ${dati.join(", ")}</p>
+
+    <h3>Naive</h3>
+    <p>Media: ${mediaN.toFixed(4)}</p>
+    <p>Varianza: ${varN.toFixed(4)}</p>
+
+    <h3>Online (Welford)</h3>
+    <p>Media: ${online.media.toFixed(4)}</p>
+    <p>Varianza: ${online.varianza.toFixed(4)}</p>
+  `;
+}
+
+function esempioCritico() {
+  const dati = [
+    1000000001,
+    1000000002,
+    1000000003,
+    1000000004,
+    1000000005
+  ];
+
+  const mediaN = mediaNaive(dati);
+  const varN = varianzaNaive(dati);
+
+  const online = mediaVarianzaOnline(dati);
+
+  const out = document.getElementById("output-critico");
+
+  out.innerHTML = `
+    <p><strong>Dati critici:</strong> ${dati.join(", ")}</p>
+
+    <h3>Naive</h3>
+    <p>Media: ${mediaN.toFixed(10)}</p>
+    <p>Varianza: ${varN.toFixed(10)}</p>
+
+    <h3>Online</h3>
+    <p>Media: ${online.media.toFixed(10)}</p>
+    <p>Varianza: ${online.varianza.toFixed(10)}</p>
+
+    <p><em>
+    Il metodo naive può perdere precisione con numeri grandi e differenze piccole.
+    L’algoritmo online è più stabile.
+    </em></p>
+  `;
+}

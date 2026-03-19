@@ -1,34 +1,45 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Settimana 2</title>
-  <link rel="stylesheet" href="../style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework 2</title>
+  <link rel="stylesheet" href="../style.css">
 </head>
+
 <body class="week-page">
   <div class="week-wrapper">
-    <a href="../home.html" class="back-link">← Torna alla home</a>
+
+    <a href="settimana1.html" class="back-link">← Torna indietro</a>
 
     <div class="content-card">
-      <h1>Homework - Settimana 2</h1>
-      <p>
-        In questa sezione è raccolto il materiale relativo alla seconda settimana del corso.
-        Qui puoi inserire una descrizione sintetica dell’homework, degli obiettivi affrontati
-        e delle eventuali attività svolte.
-      </p>
+      <h1>Homework 2: Media e Varianza</h1>
 
       <p>
-        Puoi usare questa pagina per scrivere direttamente il contenuto del lavoro oppure
-        per collegare un file PDF, immagini, grafici o altri materiali utili.
+        Generazione di valori casuali e confronto tra algoritmo naive e algoritmo online (Welford).
       </p>
 
+      <!-- PARTE 1 -->
       <div class="homework-box">
-        <h2>Contenuto</h2>
-        <p>Inserisci qui il testo del tuo homework della settimana 2.</p>
-        <p>Ad esempio: introduzione, esercizi svolti, commenti finali e materiali allegati.</p>
+        <h2>Parte obbligatoria</h2>
+
+        <button onclick="eseguiHomework2()">Genera dati</button>
+
+        <div id="output-hmw2" style="margin-top:20px;"></div>
       </div>
+
+      <!-- PARTE 2 -->
+      <div class="homework-box">
+        <h2>Parte opzionale</h2>
+
+        <button onclick="esempioCritico()">Mostra caso critico</button>
+
+        <div id="output-critico" style="margin-top:20px;"></div>
+      </div>
+
     </div>
   </div>
+
+  <script src="../script.js"></script>
 </body>
 </html>
