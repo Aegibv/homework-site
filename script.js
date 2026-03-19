@@ -116,6 +116,7 @@ function eseguiHomework2() {
 
   const mediaN = mediaNaive(dati);
   const varN = varianzaNaive(dati);
+
   const online = mediaVarianzaOnline(dati);
 
   const output = document.getElementById("output-hmw2");
@@ -123,16 +124,38 @@ function eseguiHomework2() {
   if (output) {
     output.innerHTML = `
       <h3>Risultati sui dati casuali</h3>
+
       <p><strong>Dati generati:</strong></p>
       <p class="hmw2-data">${dati.join(", ")}</p>
 
-      <p><strong>Metodo naive</strong></p>
-      <p>Media: ${mediaN.toFixed(4)}</p>
-      <p>Varianza: ${varN.toFixed(4)}</p>
+      <table class="hmw2-table">
+        <thead>
+          <tr>
+            <th>Metodo</th>
+            <th>Media</th>
+            <th>Varianza</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Naive</td>
+            <td>${mediaN.toFixed(4)}</td>
+            <td>${varN.toFixed(4)}</td>
+          </tr>
+          <tr>
+            <td>Online (Welford)</td>
+            <td>${online.media.toFixed(4)}</td>
+            <td>${online.varianza.toFixed(4)}</td>
+          </tr>
+        </tbody>
+      </table>
 
-      <p><strong>Metodo online (Welford)</strong></p>
-      <p>Media: ${online.media.toFixed(4)}</p>
-      <p>Varianza: ${online.varianza.toFixed(4)}</p>
+      <div class="hmw2-note">
+        <strong>Conclusione del confronto:</strong>
+        sui dati casuali i due metodi producono risultati molto vicini.
+        L’algoritmo online, però, è più adatto quando i dati arrivano
+        progressivamente ed è anche più stabile numericamente.
+      </div>
     `;
   }
 }
@@ -148,6 +171,7 @@ function esempioCritico() {
 
   const mediaN = mediaNaive(dati);
   const varN = varianzaNaive(dati);
+
   const online = mediaVarianzaOnline(dati);
 
   const output = document.getElementById("output-critico");
@@ -155,21 +179,51 @@ function esempioCritico() {
   if (output) {
     output.innerHTML = `
       <h3>Caso critico</h3>
+
       <p><strong>Dati:</strong></p>
       <p class="hmw2-data">${dati.join(", ")}</p>
 
-      <p><strong>Metodo naive</strong></p>
-      <p>Media: ${mediaN.toFixed(10)}</p>
-      <p>Varianza: ${varN.toFixed(10)}</p>
+      <table class="hmw2-table">
+        <thead>
+          <tr>
+            <th>Metodo</th>
+            <th>Media</th>
+            <th>Varianza</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Naive</td>
+            <td>${mediaN.toFixed(10)}</td>
+            <td>${varN.toFixed(10)}</td>
+          </tr>
+          <tr>
+            <td>Online (Welford)</td>
+            <td>${online.media.toFixed(10)}</td>
+            <td>${online.varianza.toFixed(10)}</td>
+          </tr>
+        </tbody>
+      </table>
 
-      <p><strong>Metodo online (Welford)</strong></p>
-      <p>Media: ${online.media.toFixed(10)}</p>
-      <p>Varianza: ${online.varianza.toFixed(10)}</p>
-
-      <p><em>
-        Con numeri molto grandi e differenze piccole, il metodo naive può risultare
-        meno stabile numericamente, mentre l’algoritmo online è più robusto.
-      </em></p>
+      <div class="hmw2-note">
+        <strong>Conclusione del confronto:</strong>
+        con numeri molto grandi e differenze molto piccole, il metodo naive può
+        risultare meno stabile numericamente, mentre l’algoritmo online conserva
+        meglio il significato del calcolo.
+      </div>
     `;
+  }
+}
+
+function resetHomework2() {
+  const output = document.getElementById("output-hmw2");
+  const critico = document.getElementById("output-critico");
+
+  if (output) {
+    output.innerHTML = `<p>Qui compariranno i dati generati, la media e la varianza calcolate con i due metodi.</p>`;
+  }
+
+  if (critico) {
+    critico.innerHTML = `<p>Qui comparirà una sequenza critica utile a mostrare i limiti del metodo naive.</p>`;
   }
 }
