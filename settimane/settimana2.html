@@ -5,38 +5,100 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Homework 2</title>
   <link rel="stylesheet" href="../style.css">
+  <style>
+    .hmw2-subtitle {
+      font-size: 1.15rem;
+      color: #355c4b;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .hmw2-btn {
+      border: none;
+      border-radius: 16px;
+      padding: 14px 22px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(90deg, #2e7d32, #66bb6a);
+      transition: transform 0.15s ease, opacity 0.15s ease;
+      margin-bottom: 18px;
+    }
+
+    .hmw2-btn:hover {
+      transform: translateY(-2px);
+      opacity: 0.95;
+    }
+
+    .hmw2-output {
+      background: #f4fbf6;
+      border: 1px solid #b7dec0;
+      border-radius: 16px;
+      padding: 18px 20px;
+      margin-top: 12px;
+      color: #244535;
+      line-height: 1.6;
+    }
+
+    .hmw2-output h3 {
+      margin-top: 0;
+      color: #145a32;
+    }
+
+    .hmw2-output p {
+      margin: 8px 0;
+    }
+
+    .hmw2-data {
+      word-break: break-word;
+      background: #e8f5e9;
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+  </style>
 </head>
 
 <body class="week-page">
   <div class="week-wrapper">
 
-    <a href="settimana1.html" class="back-link">← Torna indietro</a>
+    <a href="../home.html" class="back-link">← Torna alla home</a>
 
     <div class="content-card">
       <h1>Homework 2: Media e Varianza</h1>
 
-      <p>
-        Generazione di valori casuali e confronto tra algoritmo naive e algoritmo online (Welford).
+      <p class="hmw2-subtitle">
+        Generazione di valori casuali in JavaScript e confronto tra algoritmo naive
+        e algoritmo online di Welford per il calcolo di media e varianza.
       </p>
 
-      <!-- PARTE 1 -->
       <div class="homework-box">
         <h2>Parte obbligatoria</h2>
+        <p>
+          Genera una sequenza casuale di dati numerici e confronta i risultati
+          ottenuti con il metodo naive e con l’algoritmo online.
+        </p>
 
-        <button onclick="eseguiHomework2()">Genera dati</button>
+        <button class="hmw2-btn" onclick="eseguiHomework2()">Genera dati e calcola</button>
 
-        <div id="output-hmw2" style="margin-top:20px;"></div>
+        <div id="output-hmw2" class="hmw2-output">
+          <p>Qui compariranno i dati generati, la media e la varianza calcolate con i due metodi.</p>
+        </div>
       </div>
 
-      <!-- PARTE 2 -->
       <div class="homework-box">
         <h2>Parte opzionale</h2>
+        <p>
+          Mostra una sequenza di dati in cui il metodo naive può diventare meno stabile
+          rispetto all’algoritmo online.
+        </p>
 
-        <button onclick="esempioCritico()">Mostra caso critico</button>
+        <button class="hmw2-btn" onclick="esempioCritico()">Mostra caso critico</button>
 
-        <div id="output-critico" style="margin-top:20px;"></div>
+        <div id="output-critico" class="hmw2-output">
+          <p>Qui comparirà una sequenza critica utile a mostrare i limiti del metodo naive.</p>
+        </div>
       </div>
-
     </div>
   </div>
 

@@ -64,45 +64,45 @@ function resetMessaggio() {
 // HOMEWORK 2
 // --------------------
 
-function generaDatiRandom(n = 20) {
+function generaDatiRandom(n = 20, min = 1, max = 100) {
   const dati = [];
   for (let i = 0; i < n; i++) {
-    dati.push(Math.floor(Math.random() * 100) + 1);
+    dati.push(Math.floor(Math.random() * (max - min + 1)) + min);
   }
   return dati;
 }
 
-function mediaNaive(arr) {
-  let sum = 0;
-  for (let i = 0; i < arr.length; i++) {
-    sum += arr[i];
+function mediaNaive(array) {
+  let somma = 0;
+  for (let i = 0; i < array.length; i++) {
+    somma += array[i];
   }
-  return sum / arr.length;
+  return somma / array.length;
 }
 
-function varianzaNaive(arr) {
-  const media = mediaNaive(arr);
-  let sum = 0;
+function varianzaNaive(array) {
+  const media = mediaNaive(array);
+  let sommaQuadrati = 0;
 
-  for (let i = 0; i < arr.length; i++) {
-    sum += (arr[i] - media) ** 2;
+  for (let i = 0; i < array.length; i++) {
+    sommaQuadrati += (array[i] - media) ** 2;
   }
 
-  return sum / arr.length;
+  return sommaQuadrati / array.length;
 }
 
-function mediaVarianzaOnline(arr) {
+function mediaVarianzaOnline(array) {
   let n = 0;
   let media = 0;
   let M2 = 0;
 
-  for (let i = 0; i < arr.length; i++) {
+  for (let i = 0; i < array.length; i++) {
     n++;
-    const x = arr[i];
+    const x = array[i];
     const delta = x - media;
-    media += delta / n;
+    media = media + delta / n;
     const delta2 = x - media;
-    M2 += delta * delta2;
+    M2 = M2 + delta * delta2;
   }
 
   return {
@@ -112,26 +112,29 @@ function mediaVarianzaOnline(arr) {
 }
 
 function eseguiHomework2() {
-  const dati = generaDatiRandom();
+  const dati = generaDatiRandom(20, 1, 100);
 
   const mediaN = mediaNaive(dati);
   const varN = varianzaNaive(dati);
-
   const online = mediaVarianzaOnline(dati);
 
-  const out = document.getElementById("output-hmw2");
+  const output = document.getElementById("output-hmw2");
 
-  out.innerHTML = `
-    <p><strong>Dati:</strong> ${dati.join(", ")}</p>
+  if (output) {
+    output.innerHTML = `
+      <h3>Risultati sui dati casuali</h3>
+      <p><strong>Dati generati:</strong></p>
+      <p class="hmw2-data">${dati.join(", ")}</p>
 
-    <h3>Naive</h3>
-    <p>Media: ${mediaN.toFixed(4)}</p>
-    <p>Varianza: ${varN.toFixed(4)}</p>
+      <p><strong>Metodo naive</strong></p>
+      <p>Media: ${mediaN.toFixed(4)}</p>
+      <p>Varianza: ${varN.toFixed(4)}</p>
 
-    <h3>Online (Welford)</h3>
-    <p>Media: ${online.media.toFixed(4)}</p>
-    <p>Varianza: ${online.varianza.toFixed(4)}</p>
-  `;
+      <p><strong>Metodo online (Welford)</strong></p>
+      <p>Media: ${online.media.toFixed(4)}</p>
+      <p>Varianza: ${online.varianza.toFixed(4)}</p>
+    `;
+  }
 }
 
 function esempioCritico() {
@@ -145,25 +148,28 @@ function esempioCritico() {
 
   const mediaN = mediaNaive(dati);
   const varN = varianzaNaive(dati);
-
   const online = mediaVarianzaOnline(dati);
 
-  const out = document.getElementById("output-critico");
+  const output = document.getElementById("output-critico");
 
-  out.innerHTML = `
-    <p><strong>Dati critici:</strong> ${dati.join(", ")}</p>
+  if (output) {
+    output.innerHTML = `
+      <h3>Caso critico</h3>
+      <p><strong>Dati:</strong></p>
+      <p class="hmw2-data">${dati.join(", ")}</p>
 
-    <h3>Naive</h3>
-    <p>Media: ${mediaN.toFixed(10)}</p>
-    <p>Varianza: ${varN.toFixed(10)}</p>
+      <p><strong>Metodo naive</strong></p>
+      <p>Media: ${mediaN.toFixed(10)}</p>
+      <p>Varianza: ${varN.toFixed(10)}</p>
 
-    <h3>Online</h3>
-    <p>Media: ${online.media.toFixed(10)}</p>
-    <p>Varianza: ${online.varianza.toFixed(10)}</p>
+      <p><strong>Metodo online (Welford)</strong></p>
+      <p>Media: ${online.media.toFixed(10)}</p>
+      <p>Varianza: ${online.varianza.toFixed(10)}</p>
 
-    <p><em>
-    Il metodo naive può perdere precisione con numeri grandi e differenze piccole.
-    L’algoritmo online è più stabile.
-    </em></p>
-  `;
+      <p><em>
+        Con numeri molto grandi e differenze piccole, il metodo naive può risultare
+        meno stabile numericamente, mentre l’algoritmo online è più robusto.
+      </em></p>
+    `;
+  }
 }
