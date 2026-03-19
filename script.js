@@ -64,12 +64,12 @@ function resetMessaggio() {
 // HOMEWORK 2
 // --------------------
 
-function generaDatiRandom(n = 20, min = 1, max = 100) {
+function generaDatiRandom(n = 20, min = -50, max = 50) {
   const dati = [];
 
   for (let i = 0; i < n; i++) {
     const valore = Math.random() * (max - min) + min;
-    dati.push(Number(valore.toFixed(3))); // 3 decimali
+    dati.push(Number(valore.toFixed(3)));
   }
 
   return dati;
