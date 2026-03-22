@@ -36,34 +36,34 @@
 
     .theory-card h2 {
       margin-top: 0;
-      font-size: 1.9rem;
+      font-size: 1.8rem;
       color: #111;
       margin-bottom: 16px;
     }
 
-    .theory-section-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-top: 18px;
-      margin-bottom: 8px;
+    .theory-card p {
+      line-height: 1.6;
+      margin: 14px 0;
       color: #111;
     }
 
-    .formula {
+    .formula-label {
       color: #6b5bd2;
       font-style: italic;
       font-weight: 700;
     }
 
+    .formula {
+      display: block;
+      margin-top: 4px;
+      font-family: "Cambria Math", "Times New Roman", serif;
+      font-size: 1.08rem;
+      line-height: 1.7;
+    }
+
     .emoji-dot {
       font-size: 1.2rem;
       margin-right: 8px;
-    }
-
-    .theory-card p {
-      line-height: 1.5;
-      margin: 10px 0;
-      color: #111;
     }
 
     @media (max-width: 900px) {
@@ -83,47 +83,91 @@
 
       <p class="theory-intro">
         I computer generano numeri pseudo-casuali con distribuzione <strong>Uniforme tra 0 e 1</strong>.
-        Per ottenere altre distribuzioni, si applicano specifiche trasformazioni matematiche
-        a questi valori di base.
+        Per ottenere altre distribuzioni, si applicano trasformazioni matematiche specifiche
+        ai valori di base generati.
       </p>
 
       <div class="theory-grid">
         <div class="theory-card">
           <h2><span class="emoji-dot">🟢</span>Distribuzioni Continue</h2>
 
-          <p><strong>Esponenziale</strong> (Metodo Trasformata Inversa)<br>
-          <span class="formula">Formula:</span> X = -ln(U) / λ</p>
+          <p>
+            <strong>Esponenziale</strong> (Trasformata inversa)<br>
+            <span class="formula-label">Formula:</span>
+            <span class="formula">X = - ln(U) / λ</span>
+          </p>
 
-          <p><strong>Normale / Gaussiana</strong> (Box-Muller)<br>
-          <span class="formula">Formula:</span> Z = √(-2 ln(U₁)) × cos(2π U₂)</p>
+          <p>
+            <strong>Normale / Gaussiana</strong> (Box-Muller)<br>
+            <span class="formula-label">Formula:</span>
+            <span class="formula">Z = √(-2 ln(U₁)) · cos(2πU₂)</span>
+          </p>
 
-          <p><strong>Cauchy</strong> (Trasformata Inversa)<br>
-          <span class="formula">Formula:</span> X = x₀ + γ tan(π(U - 0.5))</p>
+          <p>
+            <strong>Cauchy</strong> (Trasformata inversa)<br>
+            <span class="formula-label">Formula:</span>
+            <span class="formula">X = x₀ + γ tan(π(U - 0.5))</span>
+          </p>
 
-          <p><strong>Chi-Quadro (χ²)</strong> (Composizione)<br>
-          <span class="formula">Formula:</span> Somma di k variabili Normali standard al quadrato.</p>
+          <p>
+            <strong>Chi-Quadro (χ²)</strong> (Composizione)<br>
+            <span class="formula-label">Formula:</span>
+            <span class="formula">χ² = Z₁² + Z₂² + ... + Z<sub>k</sub>²</span>
+          </p>
 
-          <p><strong>F di Fisher</strong> (Rapporto)<br>
-          <span class="formula">Formula:</span> Rapporto tra due Chi-Quadro divise per i gradi di libertà.</p>
+          <p>
+            <strong>F di Fisher</strong> (Rapporto)<br>
+            <span class="formula-label">Formula:</span>
+            <span class="formula">F = (χ₁² / ν₁) / (χ₂² / ν₂)</span>
+          </p>
 
-          <p><strong>Triangolare</strong> (Trasformata Inversa a tratti)<br>
-          <span class="formula">Formula:</span> Uso delle radici quadrate di U basate su minimo, massimo e moda.</p>
+          <p>
+            <strong>Triangolare</strong> (Trasformata inversa a tratti)<br>
+            <span class="formula-label">Formula:</span>
+            <span class="formula">
+              X = a + √(U(b-a)(c-a)) &nbsp; se U &lt; (c-a)/(b-a)
+            </span>
+            <span class="formula">
+              X = b - √((1-U)(b-a)(b-c)) &nbsp; altrimenti
+            </span>
+          </p>
+
+          <p>
+            <strong>Pareto</strong> (Trasformata inversa)<br>
+            <span class="formula-label">Formula:</span>
+            <span class="formula">X = x<sub>m</sub> / U<sup>1/α</sup></span>
+          </p>
         </div>
 
         <div class="theory-card">
           <h2><span class="emoji-dot">🔵</span>Distribuzioni Discrete</h2>
 
-          <p><strong>Bernoulli</strong> (Soglia diretta)<br>
-          <span class="formula">Formula:</span> Se U &lt; p → 1 (Successo), altrimenti 0.</p>
+          <p>
+            <strong>Bernoulli</strong> (Soglia diretta)<br>
+            <span class="formula-label">Formula:</span>
+            <span class="formula">X = 1 se U &lt; p, altrimenti X = 0</span>
+          </p>
 
-          <p><strong>Binomiale</strong> (Somma di Bernoulli)<br>
-          <span class="formula">Formula:</span> Somma dei successi in n test di Bernoulli indipendenti.</p>
+          <p>
+            <strong>Binomiale</strong> (Somma di Bernoulli)<br>
+            <span class="formula-label">Formula:</span>
+            <span class="formula">X = X₁ + X₂ + ... + X<sub>n</sub></span>
+            <span class="formula">dove ogni X<sub>i</sub> ~ Bernoulli(p)</span>
+          </p>
 
-          <p><strong>Geometrica</strong> (Trasformata Inversa discretizzata)<br>
-          <span class="formula">Formula:</span> X = ⌈ ln(U) / ln(1-p) ⌉</p>
+          <p>
+            <strong>Geometrica</strong> (Trasformata inversa discretizzata)<br>
+            <span class="formula-label">Formula:</span>
+            <span class="formula">X = ⌈ ln(U) / ln(1-p) ⌉</span>
+          </p>
 
-          <p><strong>Poisson</strong> (Moltiplicazione sequenziale)<br>
-          <span class="formula">Formula:</span> Si moltiplicano U₁ × U₂ finché il prodotto &lt; e<sup>-λ</sup>.</p>
+          <p>
+            <strong>Poisson</strong> (Moltiplicazione sequenziale)<br>
+            <span class="formula-label">Formula:</span>
+            <span class="formula">
+              Si moltiplicano U₁, U₂, ... finché ∏U<sub>i</sub> &lt; e<sup>-λ</sup>
+            </span>
+          </p>
         </div>
       </div>
     </div>
