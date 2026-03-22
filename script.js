@@ -64,25 +64,12 @@ function resetMessaggio() {
 // HOMEWORK 2
 // --------------------
 
-function generaDatiRandom(n = 20, min = -50, max = 50) {
+function generaDatiRandom(n, min, max) {
   const dati = [];
 
-  // metà negativi
-  for (let i = 0; i < Math.floor(n / 2); i++) {
-    const valore = -(Math.random() * Math.abs(min));
+  for (let i = 0; i < n; i++) {
+    const valore = Math.random() * (max - min) + min;
     dati.push(Number(valore.toFixed(3)));
-  }
-
-  // metà positivi
-  for (let i = Math.floor(n / 2); i < n; i++) {
-    const valore = Math.random() * max;
-    dati.push(Number(valore.toFixed(3)));
-  }
-
-  // mescola i valori
-  for (let i = dati.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [dati[i], dati[j]] = [dati[j], dati[i]];
   }
 
   return dati;
@@ -128,52 +115,59 @@ function mediaVarianzaOnline(array) {
 }
 
 function eseguiHomework2() {
-  const dati = generaDatiRandom(20, 1, 100);
+  const n = parseInt(document.getElementById("num-dati").value);
+  const min = parseFloat(document.getElementById("min-val").value);
+  const max = parseFloat(document.getElementById("max-val").value);
+
+  if (min >= max) {
+    alert("Il valore minimo deve essere minore del massimo!");
+    return;
+  }
+
+  const dati = generaDatiRandom(n, min, max);
 
   const mediaN = mediaNaive(dati);
   const varN = varianzaNaive(dati);
-
   const online = mediaVarianzaOnline(dati);
+
+  const minCampione = Math.min(...dati);
+  const maxCampione = Math.max(...dati);
 
   const output = document.getElementById("output-hmw2");
 
-  if (output) {
-    output.innerHTML = `
-      <h3>Risultati sui dati casuali</h3>
+  output.innerHTML = `
+    <h3>Risultati</h3>
 
-      <p><strong>Dati generati:</strong></p>
-      <p class="hmw2-data">${dati.join(", ")}</p>
+    <p><strong>Dati:</strong></p>
+    <p class="hmw2-data">${dati.join(", ")}</p>
 
-      <table class="hmw2-table">
-        <thead>
-          <tr>
-            <th>Metodo</th>
-            <th>Media</th>
-            <th>Varianza</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Naive</td>
-            <td>${mediaN.toFixed(4)}</td>
-            <td>${varN.toFixed(4)}</td>
-          </tr>
-          <tr>
-            <td>Online (Welford)</td>
-            <td>${online.media.toFixed(4)}</td>
-            <td>${online.varianza.toFixed(4)}</td>
-          </tr>
-        </tbody>
-      </table>
+    <p><strong>Min campione:</strong> ${minCampione.toFixed(3)}</p>
+    <p><strong>Max campione:</strong> ${maxCampione.toFixed(3)}</p>
 
-      <div class="hmw2-note">
-        <strong>Conclusione del confronto:</strong>
-        sui dati casuali i due metodi producono risultati molto vicini.
-        L’algoritmo online, però, è più adatto quando i dati arrivano
-        progressivamente ed è anche più stabile numericamente.
-      </div>
-    `;
-  }
+    <table class="hmw2-table">
+      <tr>
+        <th>Metodo</th>
+        <th>Media</th>
+        <th>Varianza</th>
+      </tr>
+      <tr>
+        <td>Naive</td>
+        <td>${mediaN.toFixed(4)}</td>
+        <td>${varN.toFixed(4)}</td>
+      </tr>
+      <tr>
+        <td>Online (Welford)</td>
+        <td>${online.media.toFixed(4)}</td>
+        <td>${online.varianza.toFixed(4)}</td>
+      </tr>
+    </table>
+
+    <div class="hmw2-note">
+      <strong>Conclusione:</strong>
+      i risultati sono simili, ma l’algoritmo online è più stabile e adatto
+      a dati che arrivano progressivamente.
+    </div>
+  `;
 }
 
 function esempioCritico() {

@@ -13,6 +13,35 @@
       margin-bottom: 28px;
     }
 
+    .hmw2-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 20px;
+      align-items: end;
+    }
+
+    .hmw2-control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .hmw2-control-group label {
+      font-weight: 700;
+      color: #1f5b3b;
+    }
+
+    .hmw2-control-group input {
+      padding: 10px 12px;
+      border: 1px solid #b7dec0;
+      border-radius: 10px;
+      font-size: 1rem;
+      background: white;
+      color: #244535;
+      width: 120px;
+    }
+
     .hmw2-btn-row {
       display: flex;
       gap: 14px;
@@ -112,6 +141,23 @@
           Genera una sequenza casuale di dati numerici e confronta i risultati
           ottenuti con il metodo naive e con l’algoritmo online.
         </p>
+
+        <div class="hmw2-controls">
+          <div class="hmw2-control-group">
+            <label for="num-dati">Numero dati</label>
+            <input type="number" id="num-dati" value="20" min="5" max="100">
+          </div>
+
+          <div class="hmw2-control-group">
+            <label for="min-val">Valore minimo</label>
+            <input type="number" id="min-val" value="-50">
+          </div>
+
+          <div class="hmw2-control-group">
+            <label for="max-val">Valore massimo</label>
+            <input type="number" id="max-val" value="50">
+          </div>
+        </div>
 
         <div class="hmw2-btn-row">
           <button class="hmw2-btn" onclick="eseguiHomework2()">Genera dati e calcola</button>
