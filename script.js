@@ -171,27 +171,27 @@ function eseguiHomework2() {
 }
 
 function esempioCritico() {
-  const dati = [
-    1000000001,
-    1000000002,
-    1000000003,
-    1000000004,
-    1000000005
-  ];
+  const dati = [];
+
+  // numeri grandi con piccole variazioni
+  for (let i = 0; i < 1000; i++) {
+    dati.push(1e9 + Math.random());
+  }
 
   const mediaN = mediaNaive(dati);
   const varN = varianzaNaive(dati);
-
   const online = mediaVarianzaOnline(dati);
+
+  const diffAssoluta = Math.abs(varN - online.varianza);
+  const diffPercentuale = (diffAssoluta / online.varianza) * 100;
 
   const output = document.getElementById("output-critico");
 
   if (output) {
     output.innerHTML = `
-      <h3>Caso critico</h3>
+      <h3>Caso critico (instabilità numerica)</h3>
 
-      <p><strong>Dati:</strong></p>
-      <p class="hmw2-data">${dati.join(", ")}</p>
+      <p><strong>Tipo di dati:</strong> numeri molto grandi con variazioni piccole</p>
 
       <table class="hmw2-table">
         <thead>
@@ -204,22 +204,25 @@ function esempioCritico() {
         <tbody>
           <tr>
             <td>Naive</td>
-            <td>${mediaN.toFixed(10)}</td>
-            <td>${varN.toFixed(10)}</td>
+            <td>${mediaN.toFixed(6)}</td>
+            <td>${varN.toExponential(6)}</td>
           </tr>
           <tr>
             <td>Online (Welford)</td>
-            <td>${online.media.toFixed(10)}</td>
-            <td>${online.varianza.toFixed(10)}</td>
+            <td>${online.media.toFixed(6)}</td>
+            <td>${online.varianza.toExponential(6)}</td>
           </tr>
         </tbody>
       </table>
 
+      <p><strong>Differenza assoluta:</strong> ${diffAssoluta.toExponential(6)}</p>
+      <p><strong>Differenza percentuale:</strong> ${diffPercentuale.toFixed(4)}%</p>
+
       <div class="hmw2-note">
-        <strong>Conclusione del confronto:</strong>
-        con numeri molto grandi e differenze molto piccole, il metodo naive può
-        risultare meno stabile numericamente, mentre l’algoritmo online conserva
-        meglio il significato del calcolo.
+        <strong>Spiegazione:</strong>
+        in presenza di numeri molto grandi e differenze molto piccole,
+        il metodo naive può perdere precisione a causa della cancellazione numerica.
+        L’algoritmo online di Welford è invece più stabile e fornisce risultati più affidabili.
       </div>
     `;
   }
