@@ -79,12 +79,13 @@
     <a href="settimana2.html" class="back-link">← Torna a Homework 2</a>
 
     <div class="content-card">
-      <h1 class="theory-title">📚 Teoria: Generare distribuzioni partendo dall'Uniforme</h1>
+      <h1 class="theory-title">📚 Teoria: Generare distribuzioni partendo dall’Uniforme</h1>
 
       <p class="theory-intro">
         I computer generano numeri pseudo-casuali con distribuzione <strong>Uniforme tra 0 e 1</strong>.
         Per ottenere altre distribuzioni, si applicano trasformazioni matematiche specifiche
-        ai valori di base generati.
+        ai valori generati. In questo modo è possibile simulare distribuzioni continue e discrete
+        a partire da una sorgente uniforme di base.
       </p>
 
       <div class="theory-grid">
@@ -98,9 +99,10 @@
           </p>
 
           <p>
-            <strong>Normale / Gaussiana</strong> (Box-Muller)<br>
+            <strong>Normale / Gaussiana</strong> (Metodo di Box-Muller)<br>
             <span class="formula-label">Formula:</span>
-            <span class="formula">Z = √(-2 ln(U₁)) · cos(2πU₂)</span>
+            <span class="formula">Z₁ = √(-2 ln(U₁)) · cos(2πU₂)</span>
+            <span class="formula">Z₂ = √(-2 ln(U₁)) · sin(2πU₂)</span>
           </p>
 
           <p>
@@ -112,7 +114,7 @@
           <p>
             <strong>Chi-Quadro (χ²)</strong> (Composizione)<br>
             <span class="formula-label">Formula:</span>
-            <span class="formula">χ² = Z₁² + Z₂² + ... + Z<sub>k</sub>²</span>
+            <span class="formula">χ²<sub>k</sub> = Σ Z<sub>i</sub><sup>2</sup>, &nbsp; con Z<sub>i</sub> ~ N(0,1)</span>
           </p>
 
           <p>
@@ -125,7 +127,7 @@
             <strong>Triangolare</strong> (Trasformata inversa a tratti)<br>
             <span class="formula-label">Formula:</span>
             <span class="formula">
-              X = a + √(U(b-a)(c-a)) &nbsp; se U &lt; (c-a)/(b-a)
+              X = a + √(U(b-a)(c-a)) &nbsp; se &nbsp; U &lt; (c-a)/(b-a)
             </span>
             <span class="formula">
               X = b - √((1-U)(b-a)(b-c)) &nbsp; altrimenti
@@ -135,7 +137,7 @@
           <p>
             <strong>Pareto</strong> (Trasformata inversa)<br>
             <span class="formula-label">Formula:</span>
-            <span class="formula">X = x<sub>m</sub> / U<sup>1/α</sup></span>
+            <span class="formula">X = x<sub>m</sub>(1 - U)<sup>-1/α</sup></span>
           </p>
         </div>
 
@@ -163,10 +165,9 @@
 
           <p>
             <strong>Poisson</strong> (Moltiplicazione sequenziale)<br>
-            <span class="formula-label">Formula:</span>
-            <span class="formula">
-              Si moltiplicano U₁, U₂, ... finché ∏U<sub>i</sub> &lt; e<sup>-λ</sup>
-            </span>
+            <span class="formula-label">Algoritmo:</span>
+            <span class="formula">L = e<sup>-λ</sup></span>
+            <span class="formula">Si moltiplicano U₁, U₂, ... finché il prodotto P &lt; L</span>
           </p>
         </div>
       </div>
