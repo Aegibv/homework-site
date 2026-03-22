@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework 2 - Theory</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .theory-title {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #2f6ea5;
+      margin-bottom: 18px;
+    }
+
+    .theory-intro {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: #244535;
+      margin-bottom: 28px;
+    }
+
+    .theory-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .theory-card {
+      background: #f7f7f7;
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+      border: 1px solid #d8e3d8;
+    }
+
+    .theory-card h2 {
+      margin-top: 0;
+      font-size: 1.9rem;
+      color: #111;
+      margin-bottom: 16px;
+    }
+
+    .theory-section-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-top: 18px;
+      margin-bottom: 8px;
+      color: #111;
+    }
+
+    .formula {
+      color: #6b5bd2;
+      font-style: italic;
+      font-weight: 700;
+    }
+
+    .emoji-dot {
+      font-size: 1.2rem;
+      margin-right: 8px;
+    }
+
+    .theory-card p {
+      line-height: 1.5;
+      margin: 10px 0;
+      color: #111;
+    }
+
+    @media (max-width: 900px) {
+      .theory-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body class="week-page">
+  <div class="week-wrapper">
+    <a href="settimana2.html" class="back-link">← Torna a Homework 2</a>
+
+    <div class="content-card">
+      <h1 class="theory-title">📚 Teoria: Generare distribuzioni partendo dall'Uniforme</h1>
+
+      <p class="theory-intro">
+        I computer generano numeri pseudo-casuali con distribuzione <strong>Uniforme tra 0 e 1</strong>.
+        Per ottenere altre distribuzioni, si applicano specifiche trasformazioni matematiche
+        a questi valori di base.
+      </p>
+
+      <div class="theory-grid">
+        <div class="theory-card">
+          <h2><span class="emoji-dot">🟢</span>Distribuzioni Continue</h2>
+
+          <p><strong>Esponenziale</strong> (Metodo Trasformata Inversa)<br>
+          <span class="formula">Formula:</span> X = -ln(U) / λ</p>
+
+          <p><strong>Normale / Gaussiana</strong> (Box-Muller)<br>
+          <span class="formula">Formula:</span> Z = √(-2 ln(U₁)) × cos(2π U₂)</p>
+
+          <p><strong>Cauchy</strong> (Trasformata Inversa)<br>
+          <span class="formula">Formula:</span> X = x₀ + γ tan(π(U - 0.5))</p>
+
+          <p><strong>Chi-Quadro (χ²)</strong> (Composizione)<br>
+          <span class="formula">Formula:</span> Somma di k variabili Normali standard al quadrato.</p>
+
+          <p><strong>F di Fisher</strong> (Rapporto)<br>
+          <span class="formula">Formula:</span> Rapporto tra due Chi-Quadro divise per i gradi di libertà.</p>
+
+          <p><strong>Triangolare</strong> (Trasformata Inversa a tratti)<br>
+          <span class="formula">Formula:</span> Uso delle radici quadrate di U basate su minimo, massimo e moda.</p>
+        </div>
+
+        <div class="theory-card">
+          <h2><span class="emoji-dot">🔵</span>Distribuzioni Discrete</h2>
+
+          <p><strong>Bernoulli</strong> (Soglia diretta)<br>
+          <span class="formula">Formula:</span> Se U &lt; p → 1 (Successo), altrimenti 0.</p>
+
+          <p><strong>Binomiale</strong> (Somma di Bernoulli)<br>
+          <span class="formula">Formula:</span> Somma dei successi in n test di Bernoulli indipendenti.</p>
+
+          <p><strong>Geometrica</strong> (Trasformata Inversa discretizzata)<br>
+          <span class="formula">Formula:</span> X = ⌈ ln(U) / ln(1-p) ⌉</p>
+
+          <p><strong>Poisson</strong> (Moltiplicazione sequenziale)<br>
+          <span class="formula">Formula:</span> Si moltiplicano U₁ × U₂ finché il prodotto &lt; e<sup>-λ</sup>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
