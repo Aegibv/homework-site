@@ -115,12 +115,29 @@ function mediaVarianzaOnline(array) {
 }
 
 function eseguiHomework2() {
-  const n = parseInt(document.getElementById("num-dati").value);
-  const min = parseFloat(document.getElementById("min-val").value);
-  const max = parseFloat(document.getElementById("max-val").value);
+  const nInput = document.getElementById("num-dati");
+  const minInput = document.getElementById("min-val");
+  const maxInput = document.getElementById("max-val");
+  const output = document.getElementById("output-hmw2");
+
+  if (!nInput || !minInput || !maxInput || !output) return;
+
+  const n = parseInt(nInput.value);
+  const min = parseFloat(minInput.value);
+  const max = parseFloat(maxInput.value);
+
+  if (isNaN(n) || isNaN(min) || isNaN(max)) {
+    output.innerHTML = `<p>Inserisci valori validi.</p>`;
+    return;
+  }
+
+  if (n <= 0) {
+    output.innerHTML = `<p>Il numero di dati deve essere positivo.</p>`;
+    return;
+  }
 
   if (min >= max) {
-    alert("Il valore minimo deve essere minore del massimo!");
+    output.innerHTML = `<p>Il valore minimo deve essere minore del massimo.</p>`;
     return;
   }
 
@@ -133,72 +150,80 @@ function eseguiHomework2() {
   const minCampione = Math.min(...dati);
   const maxCampione = Math.max(...dati);
 
-  const output = document.getElementById("output-hmw2");
-
   const diffAssoluta = Math.abs(varN - online.varianza);
-const diffPercentuale = (diffAssoluta / online.varianza) * 100;
+  const diffPercentuale = online.varianza !== 0
+    ? (diffAssoluta / Math.abs(online.varianza)) * 100
+    : 0;
 
-let warning = "";
+  const naiveClass = diffPercentuale > 1 ? "color:#c62828; font-weight:700;" : "";
+  const barWidth = Math.min(diffPercentuale, 100);
 
-if (diffPercentuale > 1) {
-  warning = `
-    <div class="hmw2-note" style="border-left: 4px solid red;">
-      <strong>⚠️ Attenzione:</strong>
-      si osserva una differenza significativa tra metodo naive e online.
-      Questo è dovuto a problemi di stabilità numerica.
-    </div>
-  `;
-} else {
-  warning = `
-    <div class="hmw2-note">
-      <strong>✔️ Confronto:</strong>
-      i due metodi producono risultati molto simili su questi dati.
-    </div>
-  `;
-}
+  let warning = "";
+  if (diffPercentuale > 1) {
+    warning = `
+      <div class="hmw2-note" style="border-left: 4px solid #c62828; background:#fff3f3;">
+        <strong>⚠️ Attenzione:</strong>
+        si osserva una differenza significativa tra metodo naive e online.
+        Questo può dipendere da problemi di stabilità numerica.
+      </div>
+    `;
+  } else {
+    warning = `
+      <div class="hmw2-note">
+        <strong>✔️ Confronto:</strong>
+        i due metodi producono risultati molto simili su questi dati.
+      </div>
+    `;
+  }
 
   output.innerHTML = `
-  <h3>Risultati</h3>
+    <h3>Risultati</h3>
 
-  <p><strong>Dati generati:</strong></p>
-  <p class="hmw2-data">${dati.join(", ")}</p>
+    <p><strong>Dati generati:</strong></p>
+    <p class="hmw2-data">${dati.join(", ")}</p>
 
-  <p><strong>Min campione:</strong> ${minCampione.toFixed(3)}</p>
-  <p><strong>Max campione:</strong> ${maxCampione.toFixed(3)}</p>
+    <p><strong>Min campione:</strong> ${minCampione.toFixed(3)}</p>
+    <p><strong>Max campione:</strong> ${maxCampione.toFixed(3)}</p>
 
-  <table class="hmw2-table">
-    <thead>
-      <tr>
-        <th>Metodo</th>
-        <th>Media</th>
-        <th>Varianza</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Naive</td>
-        <td>${mediaN.toFixed(4)}</td>
-        <td>${varN.toFixed(6)}</td>
-      </tr>
-      <tr>
-        <td>Online (Welford)</td>
-        <td>${online.media.toFixed(4)}</td>
-        <td>${online.varianza.toFixed(6)}</td>
-      </tr>
-    </tbody>
-  </table>
+    <table class="hmw2-table">
+      <thead>
+        <tr>
+          <th>Metodo</th>
+          <th>Media</th>
+          <th>Varianza</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Naive</td>
+          <td style="${naiveClass}">${mediaN.toFixed(4)}</td>
+          <td style="${naiveClass}">${varN.toFixed(6)}</td>
+        </tr>
+        <tr>
+          <td>Online (Welford)</td>
+          <td>${online.media.toFixed(4)}</td>
+          <td>${online.varianza.toFixed(6)}</td>
+        </tr>
+      </tbody>
+    </table>
 
-  <p><strong>Differenza assoluta:</strong> ${diffAssoluta.toExponential(4)}</p>
-  <p><strong>Differenza percentuale:</strong> ${diffPercentuale.toFixed(4)}%</p>
+    <p><strong>Differenza assoluta:</strong> ${diffAssoluta.toExponential(4)}</p>
+    <p><strong>Differenza percentuale:</strong> ${diffPercentuale.toFixed(4)}%</p>
 
-  ${warning}
-`;
+    <div style="margin: 14px 0;">
+      <p><strong>Barra dell'errore</strong></p>
+      <div style="width:100%; background:#e8f5e9; border-radius:10px; overflow:hidden; height:18px; border:1px solid #c8e6c9;">
+        <div style="width:${barWidth}%; height:100%; background:${diffPercentuale > 1 ? "#c62828" : "#66bb6a"};"></div>
+      </div>
+    </div>
+
+    ${warning}
+  `;
 }
 
 function esempioCritico() {
   const dati = [];
 
-  // numeri grandi con piccole variazioni
   for (let i = 0; i < 1000; i++) {
     dati.push(1e9 + Math.random());
   }
@@ -208,49 +233,61 @@ function esempioCritico() {
   const online = mediaVarianzaOnline(dati);
 
   const diffAssoluta = Math.abs(varN - online.varianza);
-  const diffPercentuale = (diffAssoluta / online.varianza) * 100;
+  const diffPercentuale = online.varianza !== 0
+    ? (diffAssoluta / Math.abs(online.varianza)) * 100
+    : 0;
+
+  const naiveClass = diffPercentuale > 1 ? "color:#c62828; font-weight:700;" : "";
+  const barWidth = Math.min(diffPercentuale, 100);
 
   const output = document.getElementById("output-critico");
 
-  if (output) {
-    output.innerHTML = `
-      <h3>Caso critico (instabilità numerica)</h3>
+  if (!output) return;
 
-      <p><strong>Tipo di dati:</strong> numeri molto grandi con variazioni piccole</p>
+  output.innerHTML = `
+    <h3>Caso critico (instabilità numerica)</h3>
 
-      <table class="hmw2-table">
-        <thead>
-          <tr>
-            <th>Metodo</th>
-            <th>Media</th>
-            <th>Varianza</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Naive</td>
-            <td>${mediaN.toFixed(6)}</td>
-            <td>${varN.toExponential(6)}</td>
-          </tr>
-          <tr>
-            <td>Online (Welford)</td>
-            <td>${online.media.toFixed(6)}</td>
-            <td>${online.varianza.toExponential(6)}</td>
-          </tr>
-        </tbody>
-      </table>
+    <p><strong>Tipo di dati:</strong> numeri molto grandi con variazioni molto piccole</p>
 
-      <p><strong>Differenza assoluta:</strong> ${diffAssoluta.toExponential(6)}</p>
-      <p><strong>Differenza percentuale:</strong> ${diffPercentuale.toFixed(4)}%</p>
+    <table class="hmw2-table">
+      <thead>
+        <tr>
+          <th>Metodo</th>
+          <th>Media</th>
+          <th>Varianza</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Naive</td>
+          <td style="${naiveClass}">${mediaN.toFixed(6)}</td>
+          <td style="${naiveClass}">${varN.toExponential(6)}</td>
+        </tr>
+        <tr>
+          <td>Online (Welford)</td>
+          <td>${online.media.toFixed(6)}</td>
+          <td>${online.varianza.toExponential(6)}</td>
+        </tr>
+      </tbody>
+    </table>
 
-      <div class="hmw2-note">
-        <strong>Spiegazione:</strong>
-        in presenza di numeri molto grandi e differenze molto piccole,
-        il metodo naive può perdere precisione a causa della cancellazione numerica.
-        L’algoritmo online di Welford è invece più stabile e fornisce risultati più affidabili.
+    <p><strong>Differenza assoluta:</strong> ${diffAssoluta.toExponential(6)}</p>
+    <p><strong>Differenza percentuale:</strong> ${diffPercentuale.toFixed(4)}%</p>
+
+    <div style="margin: 14px 0;">
+      <p><strong>Barra dell'errore</strong></p>
+      <div style="width:100%; background:#fdeaea; border-radius:10px; overflow:hidden; height:18px; border:1px solid #ef9a9a;">
+        <div style="width:${barWidth}%; height:100%; background:#c62828;"></div>
       </div>
-    `;
-  }
+    </div>
+
+    <div class="hmw2-note" style="border-left: 4px solid #c62828; background:#fff3f3;">
+      <strong>Conclusione del confronto:</strong>
+      con numeri molto grandi e differenze molto piccole, il metodo naive può
+      perdere precisione a causa della cancellazione numerica, mentre l’algoritmo
+      online di Welford risulta più stabile.
+    </div>
+  `;
 }
 
 function resetHomework2() {
