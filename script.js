@@ -135,39 +135,64 @@ function eseguiHomework2() {
 
   const output = document.getElementById("output-hmw2");
 
+  const diffAssoluta = Math.abs(varN - online.varianza);
+const diffPercentuale = (diffAssoluta / online.varianza) * 100;
+
+let warning = "";
+
+if (diffPercentuale > 1) {
+  warning = `
+    <div class="hmw2-note" style="border-left: 4px solid red;">
+      <strong>⚠️ Attenzione:</strong>
+      si osserva una differenza significativa tra metodo naive e online.
+      Questo è dovuto a problemi di stabilità numerica.
+    </div>
+  `;
+} else {
+  warning = `
+    <div class="hmw2-note">
+      <strong>✔️ Confronto:</strong>
+      i due metodi producono risultati molto simili su questi dati.
+    </div>
+  `;
+}
+
   output.innerHTML = `
-    <h3>Risultati</h3>
+  <h3>Risultati</h3>
 
-    <p><strong>Dati:</strong></p>
-    <p class="hmw2-data">${dati.join(", ")}</p>
+  <p><strong>Dati generati:</strong></p>
+  <p class="hmw2-data">${dati.join(", ")}</p>
 
-    <p><strong>Min campione:</strong> ${minCampione.toFixed(3)}</p>
-    <p><strong>Max campione:</strong> ${maxCampione.toFixed(3)}</p>
+  <p><strong>Min campione:</strong> ${minCampione.toFixed(3)}</p>
+  <p><strong>Max campione:</strong> ${maxCampione.toFixed(3)}</p>
 
-    <table class="hmw2-table">
+  <table class="hmw2-table">
+    <thead>
       <tr>
         <th>Metodo</th>
         <th>Media</th>
         <th>Varianza</th>
       </tr>
+    </thead>
+    <tbody>
       <tr>
         <td>Naive</td>
         <td>${mediaN.toFixed(4)}</td>
-        <td>${varN.toFixed(4)}</td>
+        <td>${varN.toFixed(6)}</td>
       </tr>
       <tr>
         <td>Online (Welford)</td>
         <td>${online.media.toFixed(4)}</td>
-        <td>${online.varianza.toFixed(4)}</td>
+        <td>${online.varianza.toFixed(6)}</td>
       </tr>
-    </table>
+    </tbody>
+  </table>
 
-    <div class="hmw2-note">
-      <strong>Conclusione:</strong>
-      i risultati sono simili, ma l’algoritmo online è più stabile e adatto
-      a dati che arrivano progressivamente.
-    </div>
-  `;
+  <p><strong>Differenza assoluta:</strong> ${diffAssoluta.toExponential(4)}</p>
+  <p><strong>Differenza percentuale:</strong> ${diffPercentuale.toFixed(4)}%</p>
+
+  ${warning}
+`;
 }
 
 function esempioCritico() {
