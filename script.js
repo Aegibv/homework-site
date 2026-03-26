@@ -460,6 +460,7 @@ function resetDemoDistribuzioni() {
   if (c1) c1.getContext("2d").clearRect(0, 0, c1.width, c1.height);
   if (c2) c2.getContext("2d").clearRect(0, 0, c2.width, c2.height);
 }
+
 /* --------------------
    RANDOM WALK - HMW3
 -------------------- */
