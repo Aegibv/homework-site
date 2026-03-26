@@ -460,6 +460,134 @@ function resetDemoDistribuzioni() {
   if (c1) c1.getContext("2d").clearRect(0, 0, c1.width, c1.height);
   if (c2) c2.getContext("2d").clearRect(0, 0, c2.width, c2.height);
 }
+/* --------------------
+   RANDOM WALK - HMW3
+-------------------- */
+
+// genera salti +1 / -1
+function generaSalti(n) {
+  const salti = [];
+  for (let i = 0; i < n; i++) {
+    salti.push(Math.random() < 0.5 ? -1 : 1);
+  }
+  return salti;
+}
+
+// costruisce la traiettoria
+function generaRandomWalk(start, salti) {
+  const valori = [start];
+
+  for (let i = 0; i < salti.length; i++) {
+    const nuovo = valori[i] + salti[i];
+    valori.push(nuovo);
+  }
+
+  return valori;
+}
+
+// disegna il grafico
+function disegnaRandomWalk(canvasId, dati) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const w = canvas.width;
+  const h = canvas.height;
+  const padding = 40;
+
+  const min = Math.min(...dati);
+  const max = Math.max(...dati);
+
+  const scalaX = (w - 2 * padding) / (dati.length - 1);
+  const scalaY = (h - 2 * padding) / (max - min || 1);
+
+  // assi
+  ctx.strokeStyle = "#3d6b4f";
+  ctx.beginPath();
+  ctx.moveTo(padding, padding);
+  ctx.lineTo(padding, h - padding);
+  ctx.lineTo(w - padding, h - padding);
+  ctx.stroke();
+
+  // linea random walk
+  ctx.strokeStyle = "#2e7d32";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+
+  for (let i = 0; i < dati.length; i++) {
+    const x = padding + i * scalaX;
+    const y = h - padding - (dati[i] - min) * scalaY;
+
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+
+  ctx.stroke();
+}
+
+// funzione principale
+function eseguiRandomWalk() {
+  const startInput = document.getElementById("start-val");
+  const stepsInput = document.getElementById("num-steps");
+  const output = document.getElementById("output-hmw3");
+
+  if (!startInput || !stepsInput || !output) return;
+
+  const start = parseFloat(startInput.value);
+  const n = parseInt(stepsInput.value);
+
+  if (isNaN(start) || isNaN(n)) {
+    output.innerHTML = `<p>Inserisci valori validi.</p>`;
+    return;
+  }
+
+  const salti = generaSalti(n);
+  const valori = generaRandomWalk(start, salti);
+
+  const finale = valori[valori.length - 1];
+  const min = Math.min(...valori);
+  const max = Math.max(...valori);
+
+  // output testuale
+  output.innerHTML = `
+    <h3>Risultati</h3>
+
+    <p><strong>Valore iniziale:</strong> ${start}</p>
+    <p><strong>Numero di passi:</strong> ${n}</p>
+    <p><strong>Valore finale:</strong> ${finale}</p>
+
+    <p><strong>Valore minimo:</strong> ${min}</p>
+    <p><strong>Valore massimo:</strong> ${max}</p>
+
+    <p><strong>Primi salti:</strong></p>
+    <p class="hmw3-data">${salti.slice(0, 20).join(", ")}</p>
+
+    <div class="hmw3-note">
+      Il random walk è costruito sommando progressivamente salti casuali +1 e -1.
+      Questo tipo di modello è spesso utilizzato per simulare l’andamento dei prezzi nei mercati finanziari.
+    </div>
+  `;
+
+  // grafico
+  disegnaRandomWalk("canvas-randomwalk", valori);
+}
+
+// reset
+function resetRandomWalk() {
+  const output = document.getElementById("output-hmw3");
+  const canvas = document.getElementById("canvas-randomwalk");
+
+  if (output) {
+    output.innerHTML = `<p>Qui compariranno i risultati della simulazione.</p>`;
+  }
+
+  if (canvas) {
+    canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+  }
+}
 
 function resetHomework2() {
   const output = document.getElementById("output-hmw2");

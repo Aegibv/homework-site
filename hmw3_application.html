@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework 3 - Application</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .hmw3-subtitle {
+      font-size: 1.15rem;
+      color: #355c4b;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .hmw3-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 20px;
+      align-items: end;
+    }
+
+    .hmw3-control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .hmw3-control-group label {
+      font-weight: 700;
+      color: #1f5b3b;
+    }
+
+    .hmw3-control-group input {
+      padding: 10px 12px;
+      border: 1px solid #b7dec0;
+      border-radius: 10px;
+      font-size: 1rem;
+      background: white;
+      color: #244535;
+      width: 130px;
+    }
+
+    .hmw3-btn-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .hmw3-btn {
+      border: none;
+      border-radius: 16px;
+      padding: 14px 22px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(90deg, #2e7d32, #66bb6a);
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .hmw3-btn:hover {
+      transform: translateY(-2px);
+      opacity: 0.95;
+    }
+
+    .hmw3-btn.reset {
+      background: #78909c;
+    }
+
+    .hmw3-output {
+      background: #f4fbf6;
+      border: 1px solid #b7dec0;
+      border-radius: 16px;
+      padding: 18px 20px;
+      margin-top: 12px;
+      color: #244535;
+      line-height: 1.6;
+    }
+
+    .hmw3-data {
+      word-break: break-word;
+      background: #e8f5e9;
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    .hmw3-note {
+      margin-top: 14px;
+      padding: 12px 14px;
+      background: #eef8ee;
+      border-left: 4px solid #66bb6a;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body class="week-page">
+  <div class="week-wrapper">
+    <a href="settimana3.html" class="back-link">← Torna a Homework 3</a>
+
+    <div class="content-card">
+      <h1>Homework 3 - Application</h1>
+
+      <p class="hmw3-subtitle">
+        Simulazione di un random walk con salti casuali pari a +1 oppure -1.
+        Il valore iniziale può essere scelto liberamente e la sequenza risultante
+        può essere interpretata come una semplice traiettoria simile all’andamento di un prezzo.
+      </p>
+
+      <div class="homework-box">
+        <h2>Simulazione del random walk</h2>
+
+        <div class="hmw3-controls">
+          <div class="hmw3-control-group">
+            <label for="start-val">Valore iniziale</label>
+            <input type="number" id="start-val" value="1000">
+          </div>
+
+          <div class="hmw3-control-group">
+            <label for="num-steps">Numero di passi</label>
+            <input type="number" id="num-steps" value="100" min="10" max="1000">
+          </div>
+        </div>
+
+        <div class="hmw3-btn-row">
+          <button class="hmw3-btn" onclick="eseguiRandomWalk()">Genera random walk</button>
+          <button class="hmw3-btn reset" onclick="resetRandomWalk()">Reset</button>
+        </div>
+
+        <div id="output-hmw3" class="hmw3-output">
+          <p>Qui compariranno i risultati della simulazione.</p>
+        </div>
+
+        <div style="margin-top:20px;">
+          <h3>Grafico del random walk</h3>
+          <canvas id="canvas-randomwalk" width="800" height="320"
+            style="width:100%; background:white; border:1px solid #c8e6c9; border-radius:12px;"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../script.js"></script>
+</body>
+</html>
