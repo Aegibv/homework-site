@@ -58,6 +58,11 @@
       line-height: 1.7;
     }
 
+    .sources-list a {
+      color: #145a32;
+      word-break: break-word;
+    }
+
     @media (max-width: 900px) {
       .theory-card-grid {
         grid-template-columns: 1fr;
@@ -74,47 +79,60 @@
       <h1>Homework 3 - Theory</h1>
 
       <p class="theory-subtitle">
-        Questa parte teorica introduce il ruolo degli exchange nei mercati finanziari,
-        la funzione dei broker e le principali categorie di strumenti finanziari
-        negoziati nei mercati.
+        In questa parte teorica vengono analizzati i mercati finanziari,
+        il ruolo dei broker e i principali strumenti finanziari negoziati
+        negli exchange. L’obiettivo è capire in modo semplice come funziona
+        il sistema dei mercati moderni e perché questi elementi sono importanti
+        anche per interpretare movimenti di prezzo come quelli simulati
+        nella parte applicativa con il random walk.
       </p>
 
       <div class="homework-box theory-section">
         <h2>I principali mercati finanziari del mondo: ruolo e funzionamento</h2>
 
         <p>
-          I mercati finanziari organizzati, spesso chiamati <strong>exchange</strong>,
-          sono luoghi fisici o digitali in cui vengono negoziati strumenti finanziari.
-          Il loro compito principale è mettere in contatto compratori e venditori,
-          garantendo regole di negoziazione, trasparenza nei prezzi e corretta esecuzione degli ordini.
+          I mercati finanziari organizzati, chiamati anche <strong>exchange</strong>,
+          sono piattaforme in cui investitori, aziende e altri operatori possono
+          acquistare e vendere strumenti finanziari. Il loro ruolo principale
+          è far incontrare domanda e offerta e permettere la formazione dei prezzi
+          in modo trasparente.
+        </p>
+
+        <p>
+          Oggi questi mercati sono quasi completamente digitalizzati e funzionano
+          tramite sistemi elettronici che registrano ed eseguono gli ordini
+          in tempo reale. Questo permette una maggiore velocità, più liquidità
+          e un accesso più ampio agli scambi.
         </p>
 
         <div class="theory-card-grid">
           <div class="theory-card">
-            <h3>Ruolo degli exchange</h3>
+            <h3>Funzioni principali degli exchange</h3>
             <ul class="theory-list">
-              <li>favorire l’incontro tra domanda e offerta;</li>
-              <li>consentire la formazione dei prezzi;</li>
-              <li>garantire liquidità al mercato;</li>
-              <li>offrire regole e standard di trasparenza.</li>
+              <li>mettere in contatto compratori e venditori;</li>
+              <li>garantire regole di negoziazione chiare;</li>
+              <li>favorire la formazione del prezzo di mercato;</li>
+              <li>offrire trasparenza e liquidità;</li>
+              <li>rendere più efficiente lo scambio di strumenti finanziari.</li>
             </ul>
           </div>
 
           <div class="theory-card">
-            <h3>Esempi principali</h3>
+            <h3>Esempi di mercati importanti</h3>
             <ul class="theory-list">
-              <li>New York Stock Exchange (NYSE)</li>
-              <li>Nasdaq</li>
-              <li>London Stock Exchange (LSE)</li>
-              <li>Euronext</li>
-              <li>Tokyo Stock Exchange (TSE)</li>
+              <li><strong>NYSE</strong> (New York Stock Exchange)</li>
+              <li><strong>Nasdaq</strong></li>
+              <li><strong>London Stock Exchange</strong></li>
+              <li><strong>Euronext</strong></li>
+              <li><strong>Tokyo Stock Exchange</strong></li>
             </ul>
           </div>
         </div>
 
         <div class="theory-note">
-          In sintesi, un exchange non è solo un “luogo di scambio”, ma un’infrastruttura
-          che rende possibile la negoziazione ordinata e affidabile degli strumenti finanziari.
+          In sintesi, un exchange non è solo un “luogo” in cui si compra e si vende,
+          ma una vera infrastruttura che rende il mercato più affidabile, ordinato
+          e accessibile agli investitori.
         </div>
       </div>
 
@@ -122,36 +140,39 @@
         <h2>Il ruolo e la funzione dei broker finanziari</h2>
 
         <p>
-          Il <strong>broker</strong> è un intermediario che esegue ordini di acquisto e vendita
-          per conto degli investitori. In molti casi l’investitore non accede direttamente
-          all’exchange, ma opera attraverso una piattaforma di brokeraggio.
+          Il <strong>broker</strong> è un intermediario tra investitore e mercato.
+          In pratica, consente all’utente di inserire ordini di acquisto e vendita
+          e di trasmetterli all’exchange. Per un investitore comune, il broker è
+          lo strumento principale attraverso cui si accede al mercato.
         </p>
 
         <div class="theory-card-grid">
           <div class="theory-card">
-            <h3>Funzioni principali</h3>
+            <h3>Cosa fa un broker</h3>
             <ul class="theory-list">
-              <li>trasmettere ed eseguire ordini;</li>
-              <li>fornire piattaforme di trading;</li>
-              <li>offrire dati di mercato e strumenti di analisi;</li>
-              <li>custodire strumenti o liquidità nei conti del cliente.</li>
+              <li>esegue ordini di acquisto e vendita;</li>
+              <li>fornisce piattaforme di trading online;</li>
+              <li>mostra quotazioni, grafici e dati di mercato;</li>
+              <li>custodisce liquidità e strumenti finanziari del cliente;</li>
+              <li>può offrire analisi, report e servizi aggiuntivi.</li>
             </ul>
           </div>
 
           <div class="theory-card">
-            <h3>Perché sono importanti</h3>
+            <h3>Perché è importante</h3>
             <ul class="theory-list">
-              <li>rendono accessibili i mercati agli investitori;</li>
-              <li>riduccono la complessità operativa;</li>
-              <li>permettono l’instradamento corretto degli ordini;</li>
-              <li>spesso offrono servizi aggiuntivi di supporto e reportistica.</li>
+              <li>permette l’accesso ai mercati anche ai piccoli investitori;</li>
+              <li>riduce la complessità tecnica dell’operatività;</li>
+              <li>semplifica l’invio e la gestione degli ordini;</li>
+              <li>rende il trading più veloce e più accessibile.</li>
             </ul>
           </div>
         </div>
 
         <div class="theory-note">
-          Il broker, quindi, svolge un ruolo di collegamento tra il singolo investitore
-          e il mercato organizzato, rendendo possibile l’operatività quotidiana.
+          Oggi molti broker sono completamente digitali. Questo ha reso i mercati
+          molto più accessibili rispetto al passato, abbassando costi e tempi
+          di esecuzione.
         </div>
       </div>
 
@@ -159,54 +180,89 @@
         <h2>I principali strumenti finanziari utilizzati negli exchange</h2>
 
         <p>
-          Gli exchange ospitano strumenti diversi, ciascuno con caratteristiche, obiettivi
-          e profili di rischio differenti. Capire le differenze tra questi strumenti è essenziale
-          per comprenderne l’utilizzo.
+          Nei mercati finanziari si scambiano strumenti diversi, ciascuno con
+          finalità, rischio e utilizzi differenti. Le principali categorie sono
+          azioni, obbligazioni, ETF e derivati.
         </p>
 
         <div class="theory-card-grid">
           <div class="theory-card">
             <h3>Azioni</h3>
             <p>
-              Le azioni rappresentano quote di proprietà di una società.
-              Chi acquista azioni partecipa al capitale dell’impresa e può beneficiare
-              di eventuali dividendi e dell’aumento del prezzo del titolo.
+              Le azioni rappresentano una quota di proprietà di una società.
+              Chi compra un’azione partecipa al capitale dell’impresa e può
+              ottenere un guadagno sia tramite l’aumento del prezzo sia tramite
+              eventuali dividendi.
             </p>
           </div>
 
           <div class="theory-card">
             <h3>Obbligazioni</h3>
             <p>
-              Le obbligazioni sono titoli di debito. L’investitore presta capitale
-              all’emittente e riceve in cambio interessi e rimborso a scadenza.
-              In genere hanno una logica più orientata alla stabilità rispetto alle azioni.
+              Le obbligazioni sono titoli di debito. Chi investe in un’obbligazione
+              presta denaro a un emittente, che si impegna a restituirlo in futuro
+              insieme agli interessi. In genere sono considerate più stabili
+              delle azioni, anche se non prive di rischio.
             </p>
           </div>
 
           <div class="theory-card">
             <h3>ETF</h3>
             <p>
-              Gli ETF sono strumenti che replicano un indice o un paniere di attività.
-              Sono molto usati per ottenere diversificazione in modo semplice e con costi ridotti.
+              Gli ETF (Exchange Traded Funds) sono strumenti quotati che replicano
+              un indice o un paniere di attività. Sono molto utilizzati perché
+              permettono diversificazione, semplicità e costi relativamente bassi.
             </p>
           </div>
 
           <div class="theory-card">
             <h3>Derivati</h3>
             <p>
-              I derivati, come futures e opzioni, derivano il proprio valore da un’attività sottostante.
-              Possono essere usati sia per copertura del rischio sia per speculazione.
+              I derivati sono strumenti il cui valore dipende da un’attività
+              sottostante, come azioni, indici, valute o materie prime.
+              Vengono usati sia per copertura del rischio sia per speculazione.
             </p>
           </div>
         </div>
 
         <div class="theory-note">
-          In sintesi: le <strong>azioni</strong> sono legate alla proprietà,
+          In sintesi, le <strong>azioni</strong> sono legate alla proprietà,
           le <strong>obbligazioni</strong> al debito, gli <strong>ETF</strong>
-          alla diversificazione e i <strong>derivati</strong> alla gestione del rischio
-          o alla speculazione. Le differenze tra questi strumenti dipendono soprattutto
-          da struttura, obiettivo e livello di rischio.
+          alla diversificazione e i <strong>derivati</strong> alla copertura
+          o alla speculazione. La scelta tra questi strumenti dipende dagli obiettivi
+          dell’investitore e dal livello di rischio che è disposto ad accettare.
         </div>
+      </div>
+
+      <div class="homework-box theory-section">
+        <h2>Collegamento con la parte applicativa</h2>
+
+        <p>
+          La parte applicativa dell’homework utilizza un random walk per simulare
+          una traiettoria di prezzo. Naturalmente si tratta di una semplificazione,
+          ma è utile perché mostra come nei mercati finanziari i prezzi possano
+          evolvere nel tempo attraverso movimenti successivi verso l’alto o verso
+          il basso.
+        </p>
+
+        <div class="theory-note">
+          Anche se il random walk non descrive tutta la complessità dei mercati reali,
+          è un modello molto usato in finanza quantitativa per introdurre l’idea
+          di dinamica dei prezzi e incertezza.
+        </div>
+      </div>
+
+      <div class="homework-box theory-section">
+        <h2>Fonti</h2>
+        <ul class="theory-list sources-list">
+          <li><a href="https://www.investopedia.com/terms/f/financial-market.asp" target="_blank">Investopedia – Financial Market</a></li>
+          <li><a href="https://www.investopedia.com/terms/b/broker.asp" target="_blank">Investopedia – Broker</a></li>
+          <li><a href="https://www.investopedia.com/terms/f/financialinstrument.asp" target="_blank">Investopedia – Financial Instrument</a></li>
+          <li><a href="https://www.investopedia.com/terms/e/etf.asp" target="_blank">Investopedia – ETF</a></li>
+          <li><a href="https://www.nyse.com/index" target="_blank">NYSE – Official Website</a></li>
+          <li><a href="https://www.nasdaq.com/about" target="_blank">Nasdaq – About</a></li>
+          <li><a href="https://www.londonstockexchange.com/discover/who-we-are" target="_blank">London Stock Exchange – Who we are</a></li>
+        </ul>
       </div>
     </div>
   </div>
