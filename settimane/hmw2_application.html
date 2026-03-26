@@ -186,6 +186,46 @@
       </div>
     </div>
   </div>
+ <div class="homework-box">
+  <h2>Demo opzionale: dalle Uniformi ad altre distribuzioni</h2>
+
+  <p>
+    Questa sezione collega la teoria alla pratica: partendo da numeri Uniformi(0,1),
+    applichiamo trasformazioni matematiche per ottenere nuove distribuzioni e ne osserviamo la forma.
+  </p>
+
+  <div class="hmw2-controls">
+    <div class="hmw2-control-group">
+      <label for="demo-dist">Distribuzione da generare</label>
+      <select id="demo-dist">
+        <option value="exp">Esponenziale</option>
+        <option value="bern">Bernoulli</option>
+        <option value="pareto">Pareto</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="hmw2-btn-row">
+    <button class="hmw2-btn" onclick="eseguiDemoDistribuzioni()">Genera demo</button>
+    <button class="hmw2-btn reset" onclick="resetDemoDistribuzioni()">Reset demo</button>
+  </div>
+
+  <div id="demo-output" class="hmw2-output">
+    <p>Qui comparirà il confronto tra distribuzione uniforme in input e distribuzione trasformata in output.</p>
+  </div>
+
+  <div style="margin-top:20px;">
+    <h3>Input: Uniforme(0,1)</h3>
+    <canvas id="canvas-input" width="700" height="260"
+      style="width:100%; background:white; border:1px solid #c8e6c9; border-radius:12px;"></canvas>
+  </div>
+
+  <div style="margin-top:20px;">
+    <h3>Output trasformato</h3>
+    <canvas id="canvas-output" width="700" height="260"
+      style="width:100%; background:white; border:1px solid #c8e6c9; border-radius:12px;"></canvas>
+  </div>
+</div>
 
   <script src="../script.js"></script>
 </body>

@@ -290,6 +290,177 @@ function esempioCritico() {
   `;
 }
 
+/* --------------------
+   DEMO OPZIONALE DISTRIBUZIONI
+-------------------- */
+
+// Genera Uniforme(0,1)
+function generaUniforme(n = 1000) {
+  const dati = [];
+  for (let i = 0; i < n; i++) {
+    dati.push(Math.random());
+  }
+  return dati;
+}
+
+// Trasformazione in Esponenziale
+function trasformaEsponenziale(uniformi, lambda = 1) {
+  return uniformi.map(u => -Math.log(u) / lambda);
+}
+
+// Trasformazione in Bernoulli
+function trasformaBernoulli(uniformi, p = 0.4) {
+  return uniformi.map(u => (u < p ? 1 : 0));
+}
+
+// Trasformazione in Pareto
+function trasformaPareto(uniformi, xm = 1, alpha = 3) {
+  return uniformi.map(u => xm * Math.pow(1 - u, -1 / alpha));
+}
+
+// Costruzione istogramma
+function creaIstogramma(array, bins = 10, min = null, max = null) {
+  const minimo = min !== null ? min : Math.min(...array);
+  const massimo = max !== null ? max : Math.max(...array);
+
+  const ampiezza = (massimo - minimo) / bins || 1;
+  const frequenze = new Array(bins).fill(0);
+
+  for (const x of array) {
+    let indice = Math.floor((x - minimo) / ampiezza);
+    if (indice >= bins) indice = bins - 1;
+    if (indice < 0) indice = 0;
+    frequenze[indice]++;
+  }
+
+  return { frequenze, minimo, massimo };
+}
+
+// Disegna istogramma su canvas
+function disegnaIstogramma(canvasId, array, bins = 10, min = null, max = null, colore = "#66bb6a") {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+  const { frequenze } = creaIstogramma(array, bins, min, max);
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const w = canvas.width;
+  const h = canvas.height;
+  const padding = 35;
+  const chartW = w - 2 * padding;
+  const chartH = h - 2 * padding;
+
+  const maxFreq = Math.max(...frequenze, 1);
+  const barW = chartW / frequenze.length;
+
+  // assi
+  ctx.strokeStyle = "#3d6b4f";
+  ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  ctx.moveTo(padding, padding);
+  ctx.lineTo(padding, h - padding);
+  ctx.lineTo(w - padding, h - padding);
+  ctx.stroke();
+
+  // barre
+  for (let i = 0; i < frequenze.length; i++) {
+    const barH = (frequenze[i] / maxFreq) * (chartH - 10);
+    const x = padding + i * barW + 4;
+    const y = h - padding - barH;
+
+    ctx.fillStyle = colore;
+    ctx.fillRect(x, y, barW - 8, barH);
+  }
+}
+
+// Esegue demo
+function eseguiDemoDistribuzioni() {
+  const scelta = document.getElementById("demo-dist");
+  const output = document.getElementById("demo-output");
+  if (!scelta || !output) return;
+
+  const uniformi = generaUniforme(1000);
+  let trasformati = [];
+  let descrizione = "";
+
+  // Input sempre uniforme
+  disegnaIstogramma("canvas-input", uniformi, 10, 0, 1, "#66bb6a");
+
+  if (scelta.value === "exp") {
+    trasformati = trasformaEsponenziale(uniformi, 1);
+
+    descrizione = `
+      <p><strong>Distribuzione scelta:</strong> Esponenziale</p>
+      <p><strong>Trasformazione usata:</strong> X = -ln(U) / λ, con λ = 1.</p>
+      <p>
+        L'input è uniforme, mentre l'output è continuo e mostra una forte concentrazione
+        vicino a 0, con una coda che si estende verso destra.
+      </p>
+    `;
+
+    disegnaIstogramma("canvas-output", trasformati, 12, 0, Math.max(...trasformati), "#42a5f5");
+  }
+
+  if (scelta.value === "bern") {
+    trasformati = trasformaBernoulli(uniformi, 0.4);
+
+    descrizione = `
+      <p><strong>Distribuzione scelta:</strong> Bernoulli</p>
+      <p><strong>Trasformazione usata:</strong> X = 1 se U &lt; p, altrimenti 0, con p = 0.4.</p>
+      <p>
+        L'input è continuo, mentre l'output è discreto e può assumere solo due valori: 0 e 1.
+      </p>
+    `;
+
+    disegnaIstogramma("canvas-output", trasformati, 2, 0, 2, "#ab47bc");
+  }
+
+  if (scelta.value === "pareto") {
+    trasformati = trasformaPareto(uniformi, 1, 3);
+
+    descrizione = `
+      <p><strong>Distribuzione scelta:</strong> Pareto</p>
+      <p><strong>Trasformazione usata:</strong> X = x<sub>m</sub>(1-U)<sup>-1/α</sup>, con x<sub>m</sub> = 1 e α = 3.</p>
+      <p>
+        L'output mostra una distribuzione asimmetrica con molti valori piccoli e pochi valori molto grandi,
+        cioè una coda pesante.
+      </p>
+    `;
+
+    // taglio il range per rendere il grafico leggibile
+    const maxGrafico = Math.min(Math.max(...trasformati), 10);
+    const filtrati = trasformati.map(x => Math.min(x, maxGrafico));
+    disegnaIstogramma("canvas-output", filtrati, 12, 1, maxGrafico, "#ffa726");
+  }
+
+  output.innerHTML = `
+    <h3>Confronto tra input e output</h3>
+    <p><strong>Input:</strong> 1000 valori Uniformi(0,1)</p>
+    ${descrizione}
+    <div class="hmw2-note">
+      <strong>Osservazione:</strong>
+      il grafico di input mantiene una forma circa uniforme, mentre il grafico di output
+      cambia forma in modo coerente con la distribuzione scelta e con la teoria studiata.
+    </div>
+  `;
+}
+
+// Reset demo
+function resetDemoDistribuzioni() {
+  const output = document.getElementById("demo-output");
+  const c1 = document.getElementById("canvas-input");
+  const c2 = document.getElementById("canvas-output");
+
+  if (output) {
+    output.innerHTML = `<p>Qui comparirà il confronto tra distribuzione uniforme in input e distribuzione trasformata in output.</p>`;
+  }
+
+  if (c1) c1.getContext("2d").clearRect(0, 0, c1.width, c1.height);
+  if (c2) c2.getContext("2d").clearRect(0, 0, c2.width, c2.height);
+}
+
 function resetHomework2() {
   const output = document.getElementById("output-hmw2");
   const critico = document.getElementById("output-critico");
