@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework 4 - Application</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .hmw4-subtitle {
+      font-size: 1.15rem;
+      color: #355c4b;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .hmw4-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 20px;
+      align-items: end;
+    }
+
+    .hmw4-control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .hmw4-control-group label {
+      font-weight: 700;
+      color: #1f5b3b;
+    }
+
+    .hmw4-control-group input {
+      padding: 10px 12px;
+      border: 1px solid #b7dec0;
+      border-radius: 10px;
+      font-size: 1rem;
+      background: white;
+      color: #244535;
+      width: 130px;
+    }
+
+    .hmw4-btn-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .hmw4-btn {
+      border: none;
+      border-radius: 16px;
+      padding: 14px 22px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(90deg, #2e7d32, #66bb6a);
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .hmw4-btn:hover {
+      transform: translateY(-2px);
+      opacity: 0.95;
+    }
+
+    .hmw4-btn.reset {
+      background: #78909c;
+    }
+
+    .hmw4-output {
+      background: #f4fbf6;
+      border: 1px solid #b7dec0;
+      border-radius: 16px;
+      padding: 18px 20px;
+      margin-top: 12px;
+      color: #244535;
+      line-height: 1.6;
+    }
+
+    .hmw4-data {
+      word-break: break-word;
+      background: #e8f5e9;
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    .hmw4-note {
+      margin-top: 14px;
+      padding: 12px 14px;
+      background: #eef8ee;
+      border-left: 4px solid #66bb6a;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body class="week-page">
+  <div class="week-wrapper">
+    <a href="settimana4.html" class="back-link">← Torna a Homework 4</a>
+
+    <div class="content-card">
+      <h1>Homework 4 - Application</h1>
+
+      <p class="hmw4-subtitle">
+        Simulazione di un Arithmetic Brownian Motion (ABM) ottenuto suddividendo
+        un intervallo temporale in piccoli passi e generando incrementi pseudo-casuali
+        continui.
+      </p>
+
+      <div class="homework-box">
+        <h2>Simulazione ABM</h2>
+
+        <div class="hmw4-controls">
+          <div class="hmw4-control-group">
+            <label for="x0-val">Valore iniziale X₀</label>
+            <input type="number" id="x0-val" value="1000" step="0.1">
+          </div>
+
+          <div class="hmw4-control-group">
+            <label for="t-val">Orizzonte T</label>
+            <input type="number" id="t-val" value="1" step="0.1">
+          </div>
+
+          <div class="hmw4-control-group">
+            <label for="n-val">Numero step</label>
+            <input type="number" id="n-val" value="100" min="10" max="5000">
+          </div>
+
+          <div class="hmw4-control-group">
+            <label for="mu-val">Drift μ</label>
+            <input type="number" id="mu-val" value="0.5" step="0.1">
+          </div>
+
+          <div class="hmw4-control-group">
+            <label for="sigma-val">Volatilità σ</label>
+            <input type="number" id="sigma-val" value="2" step="0.1">
+          </div>
+        </div>
+
+        <div class="hmw4-btn-row">
+          <button class="hmw4-btn" onclick="eseguiABM()">Genera ABM</button>
+          <button class="hmw4-btn reset" onclick="resetABM()">Reset</button>
+        </div>
+
+        <div id="output-hmw4" class="hmw4-output">
+          <p>Qui compariranno i risultati della simulazione.</p>
+        </div>
+
+        <div style="margin-top:20px;">
+          <h3>Grafico del processo</h3>
+          <canvas id="canvas-abm" width="800" height="320"
+            style="width:100%; background:white; border:1px solid #c8e6c9; border-radius:12px;"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../script.js"></script>
+</body>
+</html>
