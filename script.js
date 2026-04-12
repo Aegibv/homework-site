@@ -603,56 +603,54 @@ function resetHomework2() {
   }
 }
 /* --------------------
-   ABM - HMW4
+   DONSKER - HMW4
 -------------------- */
 
-// generatore normale standard (Box-Muller)
-function generaNormale() {
-  let u1 = Math.random();
-  let u2 = Math.random();
-
-  return Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
-}
-
-// simulazione ABM
-function generaABM(x0, T, n, mu, sigma) {
-  const dt = T / n;
-  const valori = [x0];
-
+// genera variabili di Rademacher (+1 / -1)
+function generaRademacher(n) {
+  const valori = [];
   for (let i = 0; i < n; i++) {
-    const Z = generaNormale();
-
-    const incremento =
-      mu * dt +
-      sigma * Math.sqrt(dt) * Z;
-
-    const nuovo = valori[i] + incremento;
-    valori.push(nuovo);
+    valori.push(Math.random() < 0.5 ? -1 : 1);
   }
-
   return valori;
 }
 
-// disegna grafico ABM
-function disegnaABM(canvasId, dati) {
+// costruisce il processo scalato
+function generaProcessoDonsker(T, n) {
+  const dt = T / n;
+  const passi = generaRademacher(n);
+  const tempi = [0];
+  const valori = [0];
+
+  let somma = 0;
+
+  for (let k = 1; k <= n; k++) {
+    somma += passi[k - 1];
+    tempi.push(k * dt);
+    valori.push(somma / Math.sqrt(n));
+  }
+
+  return { tempi, valori, passi };
+}
+
+// disegna il grafico
+function disegnaDonsker(canvasId, tempi, valori) {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
 
   const ctx = canvas.getContext("2d");
-
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   const w = canvas.width;
   const h = canvas.height;
   const padding = 40;
 
-  const min = Math.min(...dati);
-  const max = Math.max(...dati);
+  const minY = Math.min(...valori);
+  const maxY = Math.max(...valori);
 
-  const scalaX = (w - 2 * padding) / (dati.length - 1);
-  const scalaY = (h - 2 * padding) / (max - min || 1);
+  const scalaX = (w - 2 * padding) / (tempi.length - 1);
+  const scalaY = (h - 2 * padding) / (maxY - minY || 1);
 
-  // assi
   ctx.strokeStyle = "#3d6b4f";
   ctx.beginPath();
   ctx.moveTo(padding, padding);
@@ -660,14 +658,13 @@ function disegnaABM(canvasId, dati) {
   ctx.lineTo(w - padding, h - padding);
   ctx.stroke();
 
-  // linea
   ctx.strokeStyle = "#1565c0";
   ctx.lineWidth = 2;
   ctx.beginPath();
 
-  for (let i = 0; i < dati.length; i++) {
+  for (let i = 0; i < valori.length; i++) {
     const x = padding + i * scalaX;
-    const y = h - padding - (dati[i] - min) * scalaY;
+    const y = h - padding - (valori[i] - minY) * scalaY;
 
     if (i === 0) ctx.moveTo(x, y);
     else ctx.lineTo(x, y);
@@ -677,52 +674,48 @@ function disegnaABM(canvasId, dati) {
 }
 
 // funzione principale
-function eseguiABM() {
-  const x0 = parseFloat(document.getElementById("x0-val").value);
+function eseguiDonsker() {
   const T = parseFloat(document.getElementById("t-val").value);
   const n = parseInt(document.getElementById("n-val").value);
-  const mu = parseFloat(document.getElementById("mu-val").value);
-  const sigma = parseFloat(document.getElementById("sigma-val").value);
-
   const output = document.getElementById("output-hmw4");
 
-  if (isNaN(x0) || isNaN(T) || isNaN(n) || isNaN(mu) || isNaN(sigma)) {
+  if (isNaN(T) || isNaN(n) || T <= 0 || n <= 0) {
     output.innerHTML = `<p>Inserisci valori validi.</p>`;
     return;
   }
 
-  const dati = generaABM(x0, T, n, mu, sigma);
+  const processo = generaProcessoDonsker(T, n);
 
-  const finale = dati[dati.length - 1];
-  const min = Math.min(...dati);
-  const max = Math.max(...dati);
+  const finale = processo.valori[processo.valori.length - 1];
+  const min = Math.min(...processo.valori);
+  const max = Math.max(...processo.valori);
 
   output.innerHTML = `
     <h3>Risultati</h3>
 
-    <p><strong>X₀:</strong> ${x0}</p>
-    <p><strong>T:</strong> ${T}</p>
-    <p><strong>Step:</strong> ${n}</p>
+    <p><strong>Orizzonte T:</strong> ${T}</p>
+    <p><strong>Numero di step n:</strong> ${n}</p>
+    <p><strong>Valore finale:</strong> ${finale.toFixed(4)}</p>
+    <p><strong>Valore minimo:</strong> ${min.toFixed(4)}</p>
+    <p><strong>Valore massimo:</strong> ${max.toFixed(4)}</p>
 
-    <p><strong>Valore finale:</strong> ${finale.toFixed(3)}</p>
-    <p><strong>Min:</strong> ${min.toFixed(3)}</p>
-    <p><strong>Max:</strong> ${max.toFixed(3)}</p>
+    <p><strong>Primi 20 passi di Rademacher:</strong></p>
+    <p class="hmw4-data">${processo.passi.slice(0, 20).join(", ")}</p>
 
     <div class="hmw4-note">
-      Il processo è simulato usando incrementi casuali continui:
-      μΔt + σ√Δt·Z.
-      Questo modello è utilizzato per descrivere dinamiche di prezzo
-      in contesti finanziari.
+      Il processo è costruito sommando variabili di Rademacher indipendenti
+      e riscalando il risultato per 1/√n. Aumentando n, la traiettoria
+      approssima sempre meglio il moto browniano.
     </div>
   `;
 
-  disegnaABM("canvas-abm", dati);
+  disegnaDonsker("canvas-donsker", processo.tempi, processo.valori);
 }
 
 // reset
-function resetABM() {
+function resetDonsker() {
   const output = document.getElementById("output-hmw4");
-  const canvas = document.getElementById("canvas-abm");
+  const canvas = document.getElementById("canvas-donsker");
 
   if (output) {
     output.innerHTML = `<p>Qui compariranno i risultati della simulazione.</p>`;

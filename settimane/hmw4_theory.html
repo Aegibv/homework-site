@@ -22,27 +22,6 @@
       margin-bottom: 10px;
     }
 
-    .theory-card-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      margin-top: 14px;
-    }
-
-    .theory-card {
-      background: #f4fbf6;
-      border: 1px solid #b7dec0;
-      border-radius: 16px;
-      padding: 18px 20px;
-      color: #244535;
-      line-height: 1.6;
-    }
-
-    .theory-card h3 {
-      margin-top: 0;
-      color: #1b5e20;
-    }
-
     .theory-note {
       margin-top: 14px;
       padding: 12px 14px;
@@ -62,12 +41,6 @@
       color: #145a32;
       word-break: break-word;
     }
-
-    @media (max-width: 900px) {
-      .theory-card-grid {
-        grid-template-columns: 1fr;
-      }
-    }
   </style>
 </head>
 
@@ -79,131 +52,83 @@
       <h1>Homework 4 - Theory</h1>
 
       <p class="theory-subtitle">
-        In questa parte teorica viene introdotto il teorema di Donsker,
-        noto anche come principio di invarianza, che rappresenta il collegamento
-        tra processi discreti come il random walk e processi continui come
-        il moto browniano. Questo risultato è fondamentale per comprendere
-        la simulazione dell’Arithmetic Brownian Motion realizzata nella parte applicativa.
+        In questa parte teorica viene introdotto il Principio di Invarianza di Donsker,
+        noto anche come teorema del limite funzionale. Questo risultato spiega perché
+        una random walk discreta, se opportunamente scalata, converge a un moto browniano
+        quando il numero di passi tende all’infinito.
       </p>
 
       <div class="homework-box theory-section">
-        <h2>Dal Random Walk al moto browniano</h2>
-
+        <h2>Idea di base</h2>
         <p>
-          Un random walk è un processo discreto in cui, ad ogni passo,
-          il valore cambia in modo casuale (ad esempio +1 o -1).
-          Questo modello è molto semplice ma utile per descrivere fenomeni incerti.
+          Consideriamo una random walk costruita con passi indipendenti, ad esempio
+          variabili di Rademacher che assumono valore +1 oppure -1 con uguale probabilità.
+          Questo processo è discreto, ma se il numero di passi cresce molto e si introduce
+          una opportuna normalizzazione, la traiettoria risultante tende a un processo continuo.
+        </p>
+      </div>
+
+      <div class="homework-box theory-section">
+        <h2>Principio di Invarianza di Donsker</h2>
+        <p>
+          Il teorema afferma che una random walk con passi indipendenti, media zero
+          e varianza finita, se riscalata correttamente, converge al moto browniano.
+          In forma intuitiva, questo significa che il limite non dipende dalla distribuzione
+          specifica dei passi, purché siano soddisfatte queste condizioni generali.
         </p>
 
         <p>
-          Se aumentiamo il numero di passi e riduciamo la dimensione di ciascun salto,
-          il processo diventa sempre più “fine” e la sua traiettoria inizia ad assomigliare
-          a una curva continua.
+          Se indichiamo con Sₙ la somma dei primi n passi, si considera il processo:
+        </p>
+
+        <p>
+          Wₙ(t) = S⌊nt⌋ / √n
+        </p>
+
+        <p>
+          e al crescere di n questo processo converge a un moto browniano.
         </p>
 
         <div class="theory-note">
-          Questo passaggio dal discreto al continuo è il punto chiave che porta
-          al moto browniano.
+          Il termine “invarianza” indica proprio il fatto che il comportamento limite
+          è stabile e non dipende dai dettagli fini del processo discreto iniziale.
         </div>
       </div>
 
       <div class="homework-box theory-section">
-        <h2>Teorema di Donsker (Principio di Invarianza)</h2>
-
+        <h2>Collegamento con la parte applicativa</h2>
         <p>
-          Il teorema di Donsker afferma che un random walk, se opportunamente
-          normalizzato, converge a un moto browniano.
+          Nella parte applicativa è stato costruito un processo ottenuto sommando
+          variabili di Rademacher e riscalando il risultato con 1/√n. Questa costruzione
+          mostra in pratica il contenuto del teorema: aumentando n, la traiettoria
+          della random walk scalata tende a quella di un moto browniano.
         </p>
 
-        <div class="theory-card">
-          <h3>Forma matematica</h3>
-          <p>
-            Se Sₙ è la somma dei primi n passi, si definisce:
-          </p>
-          <p>
-            Wₙ(t) = S⌊nt⌋ / √n
-          </p>
-          <p>
-            Al crescere di n, Wₙ(t) converge a B(t), cioè al moto browniano.
-          </p>
-        </div>
-
-        <div class="theory-note">
-          Questo risultato mostra che molti processi discreti, se scalati correttamente,
-          hanno lo stesso comportamento limite: il moto browniano.
-        </div>
-      </div>
-
-      <div class="homework-box theory-section">
-        <h2>Interpretazione intuitiva</h2>
-
-        <div class="theory-card-grid">
-          <div class="theory-card">
-            <h3>Cosa significa</h3>
-            <ul class="theory-list">
-              <li>un processo discreto può diventare continuo;</li>
-              <li>i dettagli del processo iniziale diventano meno rilevanti;</li>
-              <li>il comportamento globale resta stabile;</li>
-            </ul>
-          </div>
-
-          <div class="theory-card">
-            <h3>Perché è importante</h3>
-            <ul class="theory-list">
-              <li>giustifica modelli continui;</li>
-              <li>semplifica l’analisi matematica;</li>
-              <li>è alla base della finanza quantitativa moderna;</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="homework-box theory-section">
-        <h2>Collegamento con l’Arithmetic Brownian Motion</h2>
-
         <p>
-          Il moto browniano è la base per costruire l’Arithmetic Brownian Motion (ABM),
-          utilizzato per modellare l’evoluzione di variabili nel tempo.
+          Questo collegamento è importante perché giustifica il passaggio dai modelli
+          discreti ai modelli continui utilizzati nella finanza quantitativa e nei
+          processi stocastici.
         </p>
-
-        <div class="theory-card">
-          <h3>Formula ABM</h3>
-          <p>
-            X(t) = X₀ + μt + σB(t)
-          </p>
-        </div>
-
-        <p>
-          Nella parte applicativa abbiamo simulato questo processo suddividendo
-          il tempo in piccoli intervalli e generando incrementi casuali.
-        </p>
-
-        <div class="theory-note">
-          Il teorema di Donsker giustifica teoricamente questa simulazione:
-          un processo discreto ben costruito può approssimare un processo continuo.
-        </div>
       </div>
 
       <div class="homework-box theory-section">
         <h2>Conclusione</h2>
-
         <p>
-          Il teorema di Donsker rappresenta il collegamento tra mondo discreto
-          e continuo. Grazie a questo risultato, modelli come l’ABM possono essere
-          utilizzati per descrivere fenomeni reali, come l’evoluzione dei prezzi
-          nei mercati finanziari.
+          Il Principio di Invarianza di Donsker rappresenta quindi il ponte teorico
+          tra random walk e moto browniano. Grazie a questo risultato, modelli continui
+          come il moto browniano aritmetico possono essere interpretati come limite
+          di processi discreti più semplici.
         </p>
       </div>
 
       <div class="homework-box theory-section">
         <h2>Fonti</h2>
         <ul class="theory-list sources-list">
-          <li><a href="https://en.wikipedia.org/wiki/Donsker%27s_theorem" target="_blank">Donsker’s Theorem</a></li>
-          <li><a href="https://en.wikipedia.org/wiki/Brownian_motion" target="_blank">Brownian Motion</a></li>
-          <li><a href="https://ocw.mit.edu" target="_blank">MIT OpenCourseWare – Stochastic Processes</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Donsker%27s_theorem" target="_blank">Donsker’s theorem</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Brownian_motion" target="_blank">Brownian motion</a></li>
+          <li><a href="https://ocw.mit.edu" target="_blank">MIT OpenCourseWare</a></li>
         </ul>
       </div>
-
     </div>
   </div>
 </body>
