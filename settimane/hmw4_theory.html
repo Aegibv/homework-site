@@ -9,37 +9,123 @@
     .theory-subtitle {
       font-size: 1.12rem;
       color: #355c4b;
-      line-height: 1.7;
-      margin-bottom: 28px;
+      line-height: 1.8;
+      margin-bottom: 30px;
+      text-align: justify;
     }
 
     .theory-section {
-      margin-bottom: 24px;
+      margin-bottom: 26px;
     }
 
     .theory-section h2 {
       color: #145a32;
+      margin-bottom: 14px;
+      font-size: 1.45rem;
+    }
+
+    .theory-section p {
+      line-height: 1.8;
+      color: #244535;
+      text-align: justify;
+      margin-bottom: 14px;
+    }
+
+    .theory-card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .theory-card {
+      background: linear-gradient(180deg, #f7fcf8 0%, #eef8ee 100%);
+      border: 1px solid #c7e3cc;
+      border-radius: 18px;
+      padding: 20px 22px;
+      color: #244535;
+      line-height: 1.7;
+      box-shadow: 0 8px 20px rgba(34, 87, 51, 0.06);
+    }
+
+    .theory-card h3 {
+      margin-top: 0;
       margin-bottom: 10px;
+      color: #1b5e20;
+      font-size: 1.08rem;
+    }
+
+    .theory-card p {
+      margin: 0;
+      text-align: justify;
+    }
+
+    .theory-highlight {
+      background: #f4fbf6;
+      border: 1px solid #b7dec0;
+      border-radius: 16px;
+      padding: 18px 20px;
+      margin: 18px 0;
+      color: #244535;
+      line-height: 1.7;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.3);
+    }
+
+    .theory-formula {
+      display: block;
+      margin: 10px 0;
+      padding: 14px 16px;
+      background: #ffffff;
+      border: 1px solid #d7eadb;
+      border-radius: 12px;
+      font-family: "Cambria Math", "Times New Roman", serif;
+      font-size: 1.06rem;
+      color: #1e4d2b;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(34, 87, 51, 0.04);
     }
 
     .theory-note {
-      margin-top: 14px;
-      padding: 12px 14px;
+      margin-top: 16px;
+      padding: 14px 16px;
       background: #eef8ee;
       border-left: 4px solid #66bb6a;
-      border-radius: 8px;
+      border-radius: 10px;
       color: #244535;
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
     .theory-list {
       margin: 8px 0 0 18px;
-      line-height: 1.7;
+      line-height: 1.8;
+      color: #244535;
+    }
+
+    .theory-list li {
+      margin-bottom: 6px;
     }
 
     .sources-list a {
       color: #145a32;
       word-break: break-word;
+      text-decoration: none;
+    }
+
+    .sources-list a:hover {
+      text-decoration: underline;
+    }
+
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, #b7dec0, transparent);
+      margin: 26px 0;
+      border: none;
+    }
+
+    @media (max-width: 900px) {
+      .theory-card-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -52,73 +138,158 @@
       <h1>Homework 4 - Theory</h1>
 
       <p class="theory-subtitle">
-        In questa parte teorica viene introdotto il Principio di Invarianza di Donsker,
-        noto anche come teorema del limite funzionale. Questo risultato spiega perché
-        una random walk discreta, se opportunamente scalata, converge a un moto browniano
-        quando il numero di passi tende all’infinito.
+        In questa parte teorica viene presentato il <strong>Principio di Invarianza di Donsker</strong>,
+        noto anche come <strong>teorema del limite funzionale</strong>. Si tratta di un risultato centrale
+        nella teoria della probabilità, perché spiega come un processo discreto, come una random walk,
+        possa convergere a un processo continuo, cioè il moto browniano. Questo collegamento è fondamentale
+        per comprendere il senso della simulazione svolta nella parte applicativa dell’homework.
       </p>
 
       <div class="homework-box theory-section">
         <h2>Idea di base</h2>
-        <p>
-          Consideriamo una random walk costruita con passi indipendenti, ad esempio
-          variabili di Rademacher che assumono valore +1 oppure -1 con uguale probabilità.
-          Questo processo è discreto, ma se il numero di passi cresce molto e si introduce
-          una opportuna normalizzazione, la traiettoria risultante tende a un processo continuo.
-        </p>
-      </div>
 
-      <div class="homework-box theory-section">
-        <h2>Principio di Invarianza di Donsker</h2>
         <p>
-          Il teorema afferma che una random walk con passi indipendenti, media zero
-          e varianza finita, se riscalata correttamente, converge al moto browniano.
-          In forma intuitiva, questo significa che il limite non dipende dalla distribuzione
-          specifica dei passi, purché siano soddisfatte queste condizioni generali.
+          Si consideri una random walk costruita a partire da passi casuali indipendenti,
+          per esempio variabili di <strong>Rademacher</strong> che assumono valore <strong>+1</strong>
+          oppure <strong>-1</strong> con uguale probabilità. Sommando progressivamente questi passi
+          si ottiene una traiettoria discreta, fatta di salti successivi verso l’alto o verso il basso.
         </p>
 
         <p>
-          Se indichiamo con Sₙ la somma dei primi n passi, si considera il processo:
-        </p>
-
-        <p>
-          Wₙ(t) = S⌊nt⌋ / √n
-        </p>
-
-        <p>
-          e al crescere di n questo processo converge a un moto browniano.
+          Presa in questa forma, la random walk resta un processo discreto. Tuttavia, se il numero di passi cresce
+          e la traiettoria viene osservata con la giusta normalizzazione, il processo comincia ad assumere
+          un comportamento sempre più simile a quello di una curva continua.
         </p>
 
         <div class="theory-note">
-          Il termine “invarianza” indica proprio il fatto che il comportamento limite
-          è stabile e non dipende dai dettagli fini del processo discreto iniziale.
+          L’idea centrale è quindi che un modello discreto molto semplice può, nel limite,
+          generare un oggetto continuo molto più ricco: il moto browniano.
         </div>
       </div>
 
+      <hr class="section-divider">
+
+      <div class="homework-box theory-section">
+        <h2>Principio di Invarianza di Donsker</h2>
+
+        <p>
+          Il teorema di Donsker afferma che una random walk con passi indipendenti,
+          media zero e varianza finita, se opportunamente riscalata, converge al
+          <strong>moto browniano</strong>. In altre parole, il limite del processo non dipende
+          dai dettagli specifici della distribuzione dei passi, purché siano rispettate
+          queste condizioni fondamentali.
+        </p>
+
+        <div class="theory-highlight">
+          <strong>Processo normalizzato:</strong>
+          <span class="theory-formula">
+            W<sub>n</sub>(t) = S<sub>⌊nt⌋</sub> / √n
+          </span>
+          dove S<sub>n</sub> rappresenta la somma dei primi n passi della random walk.
+        </div>
+
+        <p>
+          Quando il numero di passi <strong>n</strong> tende all’infinito, il processo
+          <strong>W<sub>n</sub>(t)</strong> converge in distribuzione a un moto browniano standard.
+          Questo è il contenuto essenziale del teorema.
+        </p>
+
+        <div class="theory-card-grid">
+          <div class="theory-card">
+            <h3>Condizioni richieste</h3>
+            <p>
+              I passi devono essere indipendenti, con media nulla e varianza finita.
+              Non è necessario che seguano una distribuzione particolare molto specifica.
+            </p>
+          </div>
+
+          <div class="theory-card">
+            <h3>Perché si parla di invarianza</h3>
+            <p>
+              Si parla di principio di invarianza perché il comportamento limite resta lo stesso
+              anche cambiando il tipo di passi, purché le condizioni di base rimangano valide.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <div class="homework-box theory-section">
+        <h2>Interpretazione intuitiva</h2>
+
+        <p>
+          Dal punto di vista intuitivo, il teorema di Donsker descrive il passaggio dal
+          <strong>mondo discreto</strong> al <strong>mondo continuo</strong>. La random walk
+          è fatta di salti separati, mentre il moto browniano è un processo continuo nel tempo.
+          Tuttavia, osservando la random walk su una scala sempre più fine e introducendo
+          il fattore di normalizzazione corretto, la traiettoria discreta tende a somigliare
+          sempre di più a una traiettoria browniana.
+        </p>
+
+        <ul class="theory-list">
+          <li>il numero di passi cresce;</li>
+          <li>l’intervallo temporale viene suddiviso sempre più finemente;</li>
+          <li>la somma viene riscalata tramite <strong>1/√n</strong>;</li>
+          <li>la traiettoria limite assume la forma del moto browniano.</li>
+        </ul>
+
+        <div class="theory-note">
+          Questo risultato è importante perché consente di usare modelli continui
+          come limite naturale di processi discreti più semplici e intuitivi.
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
       <div class="homework-box theory-section">
         <h2>Collegamento con la parte applicativa</h2>
+
         <p>
-          Nella parte applicativa è stato costruito un processo ottenuto sommando
-          variabili di Rademacher e riscalando il risultato con 1/√n. Questa costruzione
-          mostra in pratica il contenuto del teorema: aumentando n, la traiettoria
-          della random walk scalata tende a quella di un moto browniano.
+          Nella parte applicativa dell’homework è stato considerato un intervallo temporale
+          <strong>T</strong>, suddiviso in <strong>n</strong> parti uguali. Per ogni tempo
+          <strong>t = kT/n</strong> è stata costruita la somma delle variabili di Rademacher
+          fino all’indice <strong>k</strong>, riscalata con il fattore <strong>1/√n</strong>.
         </p>
 
         <p>
-          Questo collegamento è importante perché giustifica il passaggio dai modelli
-          discreti ai modelli continui utilizzati nella finanza quantitativa e nei
-          processi stocastici.
+          In questo modo si ottiene una traiettoria che, al crescere di <strong>n</strong>,
+          illustra concretamente il contenuto del teorema: la random walk scalata tende
+          a un processo browniano.
+        </p>
+
+        <div class="theory-highlight">
+          <strong>Idea chiave della simulazione:</strong>
+          <span class="theory-formula">
+            somma cumulativa dei passi di Rademacher + riscalamento con 1/√n
+          </span>
+        </div>
+
+        <p>
+          Il significato della simulazione non è soltanto grafico, ma anche teorico:
+          mostra come un modello discreto costruito con salti elementari possa generare,
+          nel limite, una dinamica continua.
         </p>
       </div>
 
+      <hr class="section-divider">
+
       <div class="homework-box theory-section">
         <h2>Conclusione</h2>
+
         <p>
           Il Principio di Invarianza di Donsker rappresenta quindi il ponte teorico
-          tra random walk e moto browniano. Grazie a questo risultato, modelli continui
-          come il moto browniano aritmetico possono essere interpretati come limite
-          di processi discreti più semplici.
+          tra random walk e moto browniano. Grazie a questo risultato si comprende
+          perché processi discreti semplici possano essere utilizzati come base per
+          costruire modelli continui, molto importanti sia nella probabilità teorica
+          sia nelle applicazioni quantitative.
         </p>
+
+        <div class="theory-note">
+          In sintesi, il teorema mostra che il moto browniano non nasce “dal nulla”,
+          ma può essere visto come il limite naturale di una successione di random walk
+          opportunamente normalizzate.
+        </div>
       </div>
 
       <div class="homework-box theory-section">
