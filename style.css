@@ -23,6 +23,7 @@ a {
   text-decoration: none;
 }
 
+/* overlay */
 .overlay {
   position: fixed;
   inset: 0;
@@ -38,6 +39,7 @@ a {
   visibility: visible;
 }
 
+/* sidebar */
 .sidebar {
   position: fixed;
   top: 0;
@@ -77,6 +79,11 @@ a {
   height: 36px;
   border-radius: 10px;
   cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .sidebar-text {
@@ -100,6 +107,12 @@ a {
   display: flex;
   align-items: center;
   gap: 12px;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.sidebar-nav a:hover {
+  transform: translateX(4px);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .nav-mark {
@@ -110,6 +123,7 @@ a {
   flex-shrink: 0;
 }
 
+/* layout principale */
 .main-content {
   padding: 28px;
   max-width: 1240px;
@@ -133,6 +147,12 @@ a {
   border-radius: 16px;
   cursor: pointer;
   box-shadow: 0 10px 25px rgba(54, 85, 66, 0.22);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.menu-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(54, 85, 66, 0.3);
 }
 
 .brand {
@@ -141,12 +161,14 @@ a {
   color: #26422f;
 }
 
+/* hero */
 .hero {
   padding: 52px 48px;
   border-radius: 32px;
   background: rgba(255, 255, 255, 0.82);
   box-shadow: 0 24px 56px rgba(38, 66, 47, 0.1);
   margin-bottom: 30px;
+  border: 1px solid rgba(220, 229, 220, 0.9);
 }
 
 .hero-badge {
@@ -184,8 +206,15 @@ a {
   padding: 15px 26px;
   border-radius: 16px;
   font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.hero-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(59, 95, 72, 0.18);
+}
+
+/* intro */
 .intro-section {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -198,6 +227,7 @@ a {
   border-radius: 28px;
   padding: 28px;
   box-shadow: 0 18px 34px rgba(38, 66, 47, 0.09);
+  border: 1px solid rgba(220, 229, 220, 0.85);
 }
 
 .intro-card h2 {
@@ -211,6 +241,7 @@ a {
   line-height: 1.8;
 }
 
+/* sezioni settimane */
 .section-title {
   font-size: 30px;
   color: #26422f;
@@ -279,6 +310,7 @@ a {
   font-weight: 600;
 }
 
+/* icone settimane */
 .week-icon-leaf::before {
   content: "";
   position: absolute;
@@ -352,6 +384,63 @@ a {
     0 10px 0 #b9cfb8,
     -10px 0 0 #b9cfb8,
     10px 0 0 #b9cfb8;
+}
+
+/* pagine interne */
+.week-page {
+  min-height: 100vh;
+  padding: 36px 20px;
+}
+
+.week-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #35543f;
+  font-weight: 600;
+}
+
+.content-card {
+  background: rgba(255, 255, 255, 0.82);
+  border-radius: 30px;
+  padding: 36px;
+  box-shadow: 0 20px 42px rgba(38, 66, 47, 0.09);
+  border: 1px solid rgba(229, 236, 230, 0.9);
+}
+
+.content-card h1 {
+  font-size: 38px;
+  color: #26422f;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.content-card p {
+  font-size: 17px;
+  line-height: 1.8;
+  color: #476452;
+  margin-bottom: 16px;
+}
+
+.homework-box {
+  margin-top: 22px;
+  padding: 24px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #f4f8f4, #e6efe8);
+  border: 1px solid #d1ddd3;
+}
+
+.homework-box h2 {
+  color: #35543f;
+  margin-bottom: 12px;
+}
+
+.homework-box p {
+  margin-bottom: 10px;
 }
 
 @media (max-width: 1000px) {

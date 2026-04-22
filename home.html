@@ -4,32 +4,61 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Homework Archive</title>
+  <link rel="stylesheet" href="style.css?v=1" />
   <link rel="stylesheet" href="home.css?v=1" />
 </head>
-<body>
+<body class="home-page">
+
+  <div class="home-ambient" aria-hidden="true">
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+
+    <span class="firefly firefly-1"></span>
+    <span class="firefly firefly-2"></span>
+    <span class="firefly firefly-3"></span>
+    <span class="firefly firefly-4"></span>
+    <span class="firefly firefly-5"></span>
+    <span class="firefly firefly-6"></span>
+  </div>
 
   <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-top">
       <h2>Homework Archive</h2>
-      <button class="close-btn" onclick="toggleSidebar()">✕</button>
+      <button class="close-btn" onclick="toggleSidebar()" aria-label="Chiudi menu">✕</button>
     </div>
 
     <p class="sidebar-text">Seleziona una settimana</p>
 
     <nav class="sidebar-nav">
-      <a href="settimane/settimana1.html" target="_blank"><span class="nav-mark"></span><span>Settimana 1</span></a>
-      <a href="settimane/settimana2.html" target="_blank"><span class="nav-mark"></span><span>Settimana 2</span></a>
-      <a href="settimane/settimana3.html" target="_blank"><span class="nav-mark"></span><span>Settimana 3</span></a>
-      <a href="settimane/settimana4.html" target="_blank"><span class="nav-mark"></span><span>Settimana 4</span></a>
-      <a href="settimane/settimana5.html" target="_blank"><span class="nav-mark"></span><span>Settimana 5</span></a>
+      <a href="settimane/settimana1.html" target="_blank">
+        <span class="nav-mark"></span>
+        <span>Settimana 1</span>
+      </a>
+      <a href="settimane/settimana2.html" target="_blank">
+        <span class="nav-mark"></span>
+        <span>Settimana 2</span>
+      </a>
+      <a href="settimane/settimana3.html" target="_blank">
+        <span class="nav-mark"></span>
+        <span>Settimana 3</span>
+      </a>
+      <a href="settimane/settimana4.html" target="_blank">
+        <span class="nav-mark"></span>
+        <span>Settimana 4</span>
+      </a>
+      <a href="settimane/settimana5.html" target="_blank">
+        <span class="nav-mark"></span>
+        <span>Settimana 5</span>
+      </a>
     </nav>
   </aside>
 
   <main class="main-content">
     <header class="topbar">
-      <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+      <button class="menu-btn" onclick="toggleSidebar()" aria-label="Apri menu">☰</button>
       <div class="brand">Homework Archive</div>
     </header>
 
@@ -46,17 +75,26 @@
     <section class="intro-section">
       <div class="intro-card">
         <h2>Introduzione</h2>
-        <p>Il sito nasce come archivio personale degli homework svolti durante il corso.</p>
+        <p>
+          Il sito nasce come archivio personale degli homework svolti durante il corso
+          e raccoglie il lavoro sviluppato settimana dopo settimana.
+        </p>
       </div>
 
       <div class="intro-card">
         <h2>Organizzazione</h2>
-        <p>Ogni homework è inserito in una pagina dedicata e consultabile per settimana.</p>
+        <p>
+          Ogni homework è inserito in una pagina dedicata, così da mantenere una
+          consultazione chiara, progressiva e uniforme.
+        </p>
       </div>
 
       <div class="intro-card">
         <h2>Profilo del gestore</h2>
-        <p>Piattaforma gestita da Andrea Giubbetto, studente magistrale in Data Analytics.</p>
+        <p>
+          Piattaforma gestita da Andrea Giubbetto, studente magistrale in Data Analytics,
+          con attenzione alla continuità tra teoria e applicazione.
+        </p>
       </div>
     </section>
 
