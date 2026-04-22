@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Homework 5 - Application</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="week-page">
+  <div class="week-wrapper">
+    <a href="settimana5.html" class="back-link">← Torna a Homework 5</a>
+
+    <div class="content-card">
+      <h1>ABM vs GBM</h1>
+
+      <div class="homework-box">
+        <h2>Simulazione</h2>
+
+        <label>X₀</label>
+        <input type="number" id="x0" value="100">
+
+        <label>T</label>
+        <input type="number" id="T" value="1">
+
+        <label>n</label>
+        <input type="number" id="n" value="200">
+
+        <label>μ</label>
+        <input type="number" id="mu" value="0.5">
+
+        <label>σ</label>
+        <input type="number" id="sigma" value="2">
+
+        <br><br>
+
+        <button onclick="eseguiHMW5()">Simula</button>
+
+        <canvas id="canvas-hmw5" width="800" height="300"></canvas>
+
+        <div id="output-hmw5"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../script.js"></script>
+</body>
+</html>

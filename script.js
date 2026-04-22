@@ -725,3 +725,88 @@ function resetDonsker() {
     canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
   }
 }
+
+/* --------------------
+   HMW5 - ABM vs GBM
+-------------------- */
+
+function normale() {
+  const u1 = Math.random();
+  const u2 = Math.random();
+  return Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+}
+
+function generaABM(x0, T, n, mu, sigma) {
+  const dt = T / n;
+  const x = [x0];
+
+  for (let i = 0; i < n; i++) {
+    const z = normale();
+    x.push(x[i] + mu * dt + sigma * Math.sqrt(dt) * z);
+  }
+
+  return x;
+}
+
+function generaGBM(x0, T, n, mu, sigma) {
+  const dt = T / n;
+  const x = [x0];
+
+  for (let i = 0; i < n; i++) {
+    const z = normale();
+    const next = x[i] * Math.exp((mu - 0.5 * sigma * sigma) * dt + sigma * Math.sqrt(dt) * z);
+    x.push(next);
+  }
+
+  return x;
+}
+
+function disegna(canvasId, abm, gbm) {
+  const canvas = document.getElementById(canvasId);
+  const ctx = canvas.getContext("2d");
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const all = abm.concat(gbm);
+  const min = Math.min(...all);
+  const max = Math.max(...all);
+
+  const scaleX = canvas.width / abm.length;
+  const scaleY = canvas.height / (max - min);
+
+  function draw(data, color) {
+    ctx.strokeStyle = color;
+    ctx.beginPath();
+
+    for (let i = 0; i < data.length; i++) {
+      const x = i * scaleX;
+      const y = canvas.height - (data[i] - min) * scaleY;
+
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+
+    ctx.stroke();
+  }
+
+  draw(abm, "blue");
+  draw(gbm, "green");
+}
+
+function eseguiHMW5() {
+  const x0 = parseFloat(document.getElementById("x0").value);
+  const T = parseFloat(document.getElementById("T").value);
+  const n = parseInt(document.getElementById("n").value);
+  const mu = parseFloat(document.getElementById("mu").value);
+  const sigma = parseFloat(document.getElementById("sigma").value);
+
+  const abm = generaABM(x0, T, n, mu, sigma);
+  const gbm = generaGBM(x0, T, n, mu, sigma);
+
+  disegna("canvas-hmw5", abm, gbm);
+
+  document.getElementById("output-hmw5").innerHTML = `
+    <p><b>ABM:</b> può assumere valori negativi</p>
+    <p><b>GBM:</b> resta sempre positivo (modello realistico per prezzi)</p>
+  `;
+}
