@@ -466,3 +466,163 @@ a {
     font-size: 34px;
   }
 }
+
+/* =========================
+   LANDING PAGE
+========================= */
+
+.landing-page {
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 18% 20%, rgba(255,255,255,0.08), transparent 18%),
+    radial-gradient(circle at 82% 25%, rgba(187, 214, 193, 0.14), transparent 22%),
+    radial-gradient(circle at 50% 10%, rgba(255, 240, 210, 0.08), transparent 28%),
+    linear-gradient(135deg, #141d17 0%, #1f2f24 25%, #2a4432 55%, #355441 100%);
+}
+
+.landing-glow {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(90px);
+  z-index: 0;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.landing-glow-1 {
+  width: 300px;
+  height: 300px;
+  background: rgba(198, 223, 202, 0.3);
+  top: 6%;
+  left: 8%;
+}
+
+.landing-glow-2 {
+  width: 360px;
+  height: 360px;
+  background: rgba(255, 255, 255, 0.1);
+  bottom: 6%;
+  right: 10%;
+}
+
+.landing-container {
+  position: relative;
+  z-index: 3;
+  width: min(90%, 780px);
+  text-align: center;
+  padding: 58px 40px;
+  border-radius: 34px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+  animation: fadeUp 1s ease;
+}
+
+.landing-badge {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.12);
+  color: #f2f7f2;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  letter-spacing: 0.4px;
+}
+
+.landing-container h1 {
+  font-size: 58px;
+  line-height: 1.04;
+  color: white;
+  margin-bottom: 18px;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.landing-container p {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #edf6ef;
+  max-width: 640px;
+  margin: 0 auto 24px auto;
+}
+
+.loading-text {
+  font-size: 16px;
+  color: #dbe8dc;
+  margin-bottom: 30px;
+  letter-spacing: 0.5px;
+  animation: pulseText 2.1s infinite;
+}
+
+.enter-btn {
+  display: inline-block;
+  text-decoration: none;
+  background: linear-gradient(135deg, #f6f1e6, #e3ece2);
+  color: #26422f;
+  padding: 15px 30px;
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 16px;
+  transition: 0.25s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+}
+
+.enter-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 18px 38px rgba(0,0,0,0.24);
+}
+
+.floating-leaves {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.leaf {
+  position: absolute;
+  top: -15%;
+  width: 26px;
+  height: 40px;
+  border-radius: 0 100% 0 100%;
+  transform: rotate(45deg);
+  opacity: 0.78;
+  background: linear-gradient(135deg, #eef5ee, #b8d4ba 45%, #62896a 100%);
+  box-shadow:
+    inset -2px -2px 4px rgba(255,255,255,0.22),
+    inset 2px 2px 6px rgba(0,0,0,0.08),
+    0 6px 16px rgba(0,0,0,0.12);
+  animation: leafFall linear infinite;
+}
+
+.leaf::before {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 26px;
+  background: rgba(36, 66, 47, 0.24);
+  left: 50%;
+  top: 7px;
+  transform: translateX(-50%) rotate(-45deg);
+  border-radius: 2px;
+}
+
+.leaf-1 { left: 5%; animation-duration: 11s; animation-delay: 0s; transform: rotate(35deg) scale(0.9); }
+.leaf-2 { left: 14%; animation-duration: 16s; animation-delay: 2s; transform: rotate(50deg) scale(0.7); }
+.leaf-3 { left: 24%; animation-duration: 13s; animation-delay: 1s; transform: rotate(42deg) scale(1); }
+.leaf-4 { left: 37%; animation-duration: 18s; animation-delay: 4s; transform: rotate(48deg) scale(0.8); }
+.leaf-5 { left: 50%; animation-duration: 14s; animation-delay: 2.5s; transform: rotate(40deg) scale(1.1); }
+.leaf-6 { left: 61%; animation-duration: 17s; animation-delay: 1.2s; transform: rotate(52deg) scale(0.75); }
+.leaf-7 { left: 72%; animation-duration: 12s; animation-delay: 3s; transform: rotate(36deg) scale(0.95); }
+.leaf-8 { left: 81%; animation-duration: 19s; animation-delay: 5s; transform: rotate(47deg) scale(0.85); }
+.leaf-9 { left: 90%; animation-duration: 15s; animation-delay: 2.2s; transform: rotate(44deg) scale(0.7); }
+.leaf-10 { left: 96%; animation-duration: 20s; animation-delay: 6s; transform: rotate(40deg) scale(0.65); }
