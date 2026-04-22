@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework 5 - Theory</title>
+  <link rel="stylesheet" href="../style.css">
+
+  <style>
+    .theory-subtitle {
+      font-size: 1.12rem;
+      color: #355c4b;
+      line-height: 1.8;
+      margin-bottom: 30px;
+      text-align: justify;
+    }
+
+    .theory-section {
+      margin-bottom: 26px;
+    }
+
+    .theory-section h2 {
+      color: #145a32;
+      margin-bottom: 14px;
+      font-size: 1.45rem;
+    }
+
+    .theory-section p {
+      line-height: 1.8;
+      color: #244535;
+      text-align: justify;
+      margin-bottom: 14px;
+    }
+
+    .theory-card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .theory-card {
+      background: linear-gradient(180deg, #f7fcf8 0%, #eef8ee 100%);
+      border: 1px solid #c7e3cc;
+      border-radius: 18px;
+      padding: 20px 22px;
+      color: #244535;
+      line-height: 1.7;
+      box-shadow: 0 8px 20px rgba(34, 87, 51, 0.06);
+    }
+
+    .theory-card h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      color: #1b5e20;
+      font-size: 1.08rem;
+    }
+
+    .theory-highlight {
+      background: #f4fbf6;
+      border: 1px solid #b7dec0;
+      border-radius: 16px;
+      padding: 18px 20px;
+      margin: 18px 0;
+    }
+
+    .theory-formula {
+      display: block;
+      margin: 10px 0;
+      padding: 14px;
+      background: white;
+      border-radius: 10px;
+      text-align: center;
+      font-family: "Cambria Math", serif;
+    }
+
+    .theory-note {
+      margin-top: 14px;
+      padding: 12px;
+      background: #eef8ee;
+      border-left: 4px solid #66bb6a;
+      border-radius: 8px;
+    }
+
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, #b7dec0, transparent);
+      margin: 26px 0;
+      border: none;
+    }
+
+    .sources-list a {
+      color: #145a32;
+      text-decoration: none;
+    }
+
+    .sources-list a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body class="week-page">
+  <div class="week-wrapper">
+    <a href="settimana5.html" class="back-link">← Torna a Homework 5</a>
+
+    <div class="content-card">
+      <h1>Homework 5 - Theory</h1>
+
+      <p class="theory-subtitle">
+        In questa sezione vengono analizzati tre tra i principali processi stocastici
+        utilizzati nella modellizzazione matematica: <strong>Arithmetic Brownian Motion (ABM)</strong>,
+        <strong>Geometric Brownian Motion (GBM)</strong> e i processi a <strong>mean reversion</strong>,
+        in particolare il processo di Ornstein–Uhlenbeck. Questi modelli permettono di descrivere
+        diverse dinamiche evolutive nel tempo, come crescita, volatilità e ritorno verso una media.
+      </p>
+
+      <!-- ABM -->
+      <div class="homework-box theory-section">
+        <h2>Arithmetic Brownian Motion (ABM)</h2>
+
+        <p>
+          L’Arithmetic Brownian Motion è uno dei modelli più semplici per descrivere
+          l’evoluzione di una variabile nel tempo. È definito come:
+        </p>
+
+        <div class="theory-highlight">
+          <span class="theory-formula">
+            X(t) = X₀ + μt + σB(t)
+          </span>
+        </div>
+
+        <p>
+          dove <strong>μ</strong> rappresenta il drift (tendenza media),
+          <strong>σ</strong> la volatilità e <strong>B(t)</strong> il moto browniano.
+        </p>
+
+        <div class="theory-card-grid">
+          <div class="theory-card">
+            <h3>Caratteristiche</h3>
+            <p>
+              Il processo evolve in modo lineare e può assumere valori sia positivi
+              che negativi.
+            </p>
+          </div>
+
+          <div class="theory-card">
+            <h3>Limite</h3>
+            <p>
+              Non è sempre realistico per i prezzi, perché questi non possono diventare negativi.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- GBM -->
+      <div class="homework-box theory-section">
+        <h2>Geometric Brownian Motion (GBM)</h2>
+
+        <p>
+          Il GBM è una versione più realistica dell’ABM ed è ampiamente utilizzato
+          in finanza per modellare i prezzi degli asset.
+        </p>
+
+        <div class="theory-highlight">
+          <span class="theory-formula">
+            X(t) = X₀ · exp((μ - ½σ²)t + σB(t))
+          </span>
+        </div>
+
+        <p>
+          A differenza dell’ABM, il GBM evolve in modo moltiplicativo.
+        </p>
+
+        <div class="theory-card-grid">
+          <div class="theory-card">
+            <h3>Vantaggi</h3>
+            <p>
+              Il processo resta sempre positivo ed è quindi adatto a descrivere prezzi.
+            </p>
+          </div>
+
+          <div class="theory-card">
+            <h3>Interpretazione</h3>
+            <p>
+              I rendimenti sono distribuiti normalmente, mentre i prezzi seguono una dinamica esponenziale.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- OU -->
+      <div class="homework-box theory-section">
+        <h2>Processi Mean Reversion (Ornstein–Uhlenbeck)</h2>
+
+        <p>
+          I processi a mean reversion descrivono fenomeni che tendono a ritornare
+          verso un valore medio nel tempo.
+        </p>
+
+        <div class="theory-highlight">
+          <span class="theory-formula">
+            dX(t) = θ(m - X(t))dt + σ dB(t)
+          </span>
+        </div>
+
+        <p>
+          dove <strong>θ</strong> misura la velocità di ritorno alla media <strong>m</strong>.
+        </p>
+
+        <div class="theory-card-grid">
+          <div class="theory-card">
+            <h3>Comportamento</h3>
+            <p>
+              Se il processo si allontana dalla media, tende a tornarvi.
+            </p>
+          </div>
+
+          <div class="theory-card">
+            <h3>Applicazioni</h3>
+            <p>
+              Utilizzato per modellare tassi di interesse, volatilità e fenomeni stabili nel lungo periodo.
+            </p>
+          </div>
+        </div>
+
+        <div class="theory-note">
+          A differenza di ABM e GBM, questo processo non cresce indefinitamente,
+          ma oscilla attorno a un valore centrale.
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- CONFRONTO -->
+      <div class="homework-box theory-section">
+        <h2>Confronto tra i modelli</h2>
+
+        <ul>
+          <li><strong>ABM:</strong> crescita lineare, può essere negativo</li>
+          <li><strong>GBM:</strong> crescita esponenziale, sempre positivo</li>
+          <li><strong>OU:</strong> ritorno verso una media (mean reversion)</li>
+        </ul>
+
+        <div class="theory-note">
+          Questi modelli rappresentano tre comportamenti fondamentali nei processi stocastici:
+          crescita libera, crescita proporzionale e stabilizzazione.
+        </div>
+      </div>
+
+      <!-- FONTI -->
+      <div class="homework-box theory-section">
+        <h2>Fonti</h2>
+        <ul class="sources-list">
+          <li><a href="https://en.wikipedia.org/wiki/Brownian_motion" target="_blank">Brownian Motion</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Geometric_Brownian_motion" target="_blank">Geometric Brownian Motion</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Ornstein%E2%80%93Uhlenbeck_process" target="_blank">Ornstein–Uhlenbeck Process</a></li>
+          <li><a href="https://ocw.mit.edu" target="_blank">MIT OpenCourseWare</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
