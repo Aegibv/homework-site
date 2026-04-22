@@ -2,8 +2,114 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Homework 5 - Application</title>
   <link rel="stylesheet" href="../style.css">
+  <style>
+    .hmw5-subtitle {
+      font-size: 1.12rem;
+      color: #355c4b;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .hmw5-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 20px;
+      align-items: end;
+    }
+
+    .hmw5-control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .hmw5-control-group label {
+      font-weight: 700;
+      color: #1f5b3b;
+    }
+
+    .hmw5-control-group input {
+      padding: 10px 12px;
+      border: 1px solid #b7dec0;
+      border-radius: 10px;
+      font-size: 1rem;
+      background: white;
+      color: #244535;
+      width: 130px;
+    }
+
+    .hmw5-btn-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .hmw5-btn {
+      border: none;
+      border-radius: 16px;
+      padding: 14px 22px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(90deg, #2e7d32, #66bb6a);
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .hmw5-btn:hover {
+      transform: translateY(-2px);
+      opacity: 0.95;
+    }
+
+    .hmw5-btn.reset {
+      background: #78909c;
+    }
+
+    .hmw5-output {
+      background: #f4fbf6;
+      border: 1px solid #b7dec0;
+      border-radius: 16px;
+      padding: 18px 20px;
+      margin-top: 12px;
+      color: #244535;
+      line-height: 1.7;
+    }
+
+    .hmw5-note {
+      margin-top: 14px;
+      padding: 12px 14px;
+      background: #eef8ee;
+      border-left: 4px solid #66bb6a;
+      border-radius: 8px;
+    }
+
+    .hmw5-legend {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin: 14px 0;
+      color: #244535;
+      font-size: 0.96rem;
+    }
+
+    .hmw5-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hmw5-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+  </style>
 </head>
 
 <body class="week-page">
@@ -11,33 +117,72 @@
     <a href="settimana5.html" class="back-link">← Torna a Homework 5</a>
 
     <div class="content-card">
-      <h1>ABM vs GBM</h1>
+      <h1>Homework 5 - Application</h1>
+
+      <p class="hmw5-subtitle">
+        In questa simulazione vengono confrontati tre processi stocastici:
+        <strong>ABM</strong>, <strong>GBM</strong> e <strong>OU</strong>.
+        Il grafico viene disegnato in modo animato per osservare meglio la differenza
+        tra dinamica lineare, dinamica esponenziale e mean reversion.
+      </p>
 
       <div class="homework-box">
-        <h2>Simulazione</h2>
+        <h2>Simulazione comparata</h2>
 
-        <label>X₀</label>
-        <input type="number" id="x0" value="100">
+        <div class="hmw5-controls">
+          <div class="hmw5-control-group">
+            <label for="x0">Valore iniziale X₀</label>
+            <input type="number" id="x0" value="100" step="0.1">
+          </div>
 
-        <label>T</label>
-        <input type="number" id="T" value="1">
+          <div class="hmw5-control-group">
+            <label for="T">Orizzonte T</label>
+            <input type="number" id="T" value="1" step="0.1">
+          </div>
 
-        <label>n</label>
-        <input type="number" id="n" value="200">
+          <div class="hmw5-control-group">
+            <label for="n">Numero step n</label>
+            <input type="number" id="n" value="200" min="20" max="5000">
+          </div>
 
-        <label>μ</label>
-        <input type="number" id="mu" value="0.5">
+          <div class="hmw5-control-group">
+            <label for="mu">Drift μ</label>
+            <input type="number" id="mu" value="0.5" step="0.1">
+          </div>
 
-        <label>σ</label>
-        <input type="number" id="sigma" value="2">
+          <div class="hmw5-control-group">
+            <label for="sigma">Volatilità σ</label>
+            <input type="number" id="sigma" value="2" step="0.1">
+          </div>
 
-        <br><br>
+          <div class="hmw5-control-group">
+            <label for="theta">Mean reversion θ</label>
+            <input type="number" id="theta" value="3" step="0.1">
+          </div>
 
-        <button onclick="eseguiHMW5()">Simula</button>
+          <div class="hmw5-control-group">
+            <label for="m">Media di lungo periodo m</label>
+            <input type="number" id="m" value="100" step="0.1">
+          </div>
+        </div>
 
-        <canvas id="canvas-hmw5" width="800" height="300"></canvas>
+        <div class="hmw5-btn-row">
+          <button class="hmw5-btn" onclick="eseguiHMW5()">Simula</button>
+          <button class="hmw5-btn reset" onclick="resetHMW5()">Reset</button>
+        </div>
 
-        <div id="output-hmw5"></div>
+        <div class="hmw5-legend">
+          <span><i class="hmw5-dot" style="background:#1565c0;"></i>ABM</span>
+          <span><i class="hmw5-dot" style="background:#2e7d32;"></i>GBM</span>
+          <span><i class="hmw5-dot" style="background:#c62828;"></i>OU</span>
+        </div>
+
+        <canvas id="canvas-hmw5" width="900" height="380"
+          style="width:100%; background:white; border:1px solid #c8e6c9; border-radius:12px;"></canvas>
+
+        <div id="output-hmw5" class="hmw5-output">
+          <p>Qui comparirà il confronto tra ABM, GBM e processo di Ornstein–Uhlenbeck.</p>
+        </div>
       </div>
     </div>
   </div>

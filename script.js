@@ -727,33 +727,38 @@ function resetDonsker() {
 }
 
 /* --------------------
-   HMW5 - ABM vs GBM
+   HMW5 - ABM vs GBM vs OU
 -------------------- */
 
-function normale() {
+let hmw5AnimationId = null;
+
+// normale standard con Box-Muller
+function normaleHMW5() {
   const u1 = Math.random();
   const u2 = Math.random();
   return Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
 }
 
-function generaABM(x0, T, n, mu, sigma) {
+// ABM
+function generaABM_HMW5(x0, T, n, mu, sigma) {
   const dt = T / n;
   const x = [x0];
 
   for (let i = 0; i < n; i++) {
-    const z = normale();
+    const z = normaleHMW5();
     x.push(x[i] + mu * dt + sigma * Math.sqrt(dt) * z);
   }
 
   return x;
 }
 
-function generaGBM(x0, T, n, mu, sigma) {
+// GBM
+function generaGBM_HMW5(x0, T, n, mu, sigma) {
   const dt = T / n;
   const x = [x0];
 
   for (let i = 0; i < n; i++) {
-    const z = normale();
+    const z = normaleHMW5();
     const next = x[i] * Math.exp((mu - 0.5 * sigma * sigma) * dt + sigma * Math.sqrt(dt) * z);
     x.push(next);
   }
@@ -761,36 +766,85 @@ function generaGBM(x0, T, n, mu, sigma) {
   return x;
 }
 
-function disegna(canvasId, abm, gbm) {
+// OU (mean reversion)
+function generaOU_HMW5(x0, T, n, theta, m, sigma) {
+  const dt = T / n;
+  const x = [x0];
+
+  for (let i = 0; i < n; i++) {
+    const z = normaleHMW5();
+    const next = x[i] + theta * (m - x[i]) * dt + sigma * Math.sqrt(dt) * z;
+    x.push(next);
+  }
+
+  return x;
+}
+
+function disegnaAssiHMW5(ctx, canvas, min, max) {
+  const padding = 45;
+
+  ctx.strokeStyle = "#476657";
+  ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  ctx.moveTo(padding, padding);
+  ctx.lineTo(padding, canvas.height - padding);
+  ctx.lineTo(canvas.width - padding, canvas.height - padding);
+  ctx.stroke();
+
+  return padding;
+}
+
+function drawLinePartialHMW5(ctx, data, color, indexMax, min, max, width, height, padding) {
+  const scaleX = (width - 2 * padding) / (data.length - 1);
+  const scaleY = (height - 2 * padding) / (max - min || 1);
+
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+
+  for (let i = 0; i <= indexMax; i++) {
+    const x = padding + i * scaleX;
+    const y = height - padding - (data[i] - min) * scaleY;
+
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+
+  ctx.stroke();
+}
+
+function animaConfrontoHMW5(canvasId, abm, gbm, ou) {
   const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+
   const ctx = canvas.getContext("2d");
 
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  if (hmw5AnimationId) {
+    cancelAnimationFrame(hmw5AnimationId);
+  }
 
-  const all = abm.concat(gbm);
+  const all = abm.concat(gbm).concat(ou);
   const min = Math.min(...all);
   const max = Math.max(...all);
 
-  const scaleX = canvas.width / abm.length;
-  const scaleY = canvas.height / (max - min);
+  let step = 1;
 
-  function draw(data, color) {
-    ctx.strokeStyle = color;
-    ctx.beginPath();
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    for (let i = 0; i < data.length; i++) {
-      const x = i * scaleX;
-      const y = canvas.height - (data[i] - min) * scaleY;
+    const padding = disegnaAssiHMW5(ctx, canvas, min, max);
 
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
+    drawLinePartialHMW5(ctx, abm, "#1565c0", step, min, max, canvas.width, canvas.height, padding);
+    drawLinePartialHMW5(ctx, gbm, "#2e7d32", step, min, max, canvas.width, canvas.height, padding);
+    drawLinePartialHMW5(ctx, ou, "#c62828", step, min, max, canvas.width, canvas.height, padding);
+
+    if (step < abm.length - 1) {
+      step++;
+      hmw5AnimationId = requestAnimationFrame(animate);
     }
-
-    ctx.stroke();
   }
 
-  draw(abm, "blue");
-  draw(gbm, "green");
+  animate();
 }
 
 function eseguiHMW5() {
@@ -799,14 +853,62 @@ function eseguiHMW5() {
   const n = parseInt(document.getElementById("n").value);
   const mu = parseFloat(document.getElementById("mu").value);
   const sigma = parseFloat(document.getElementById("sigma").value);
+  const theta = parseFloat(document.getElementById("theta").value);
+  const m = parseFloat(document.getElementById("m").value);
 
-  const abm = generaABM(x0, T, n, mu, sigma);
-  const gbm = generaGBM(x0, T, n, mu, sigma);
+  const output = document.getElementById("output-hmw5");
 
-  disegna("canvas-hmw5", abm, gbm);
+  if ([x0, T, n, mu, sigma, theta, m].some(v => Number.isNaN(v))) {
+    output.innerHTML = `<p>Inserisci valori validi.</p>`;
+    return;
+  }
 
-  document.getElementById("output-hmw5").innerHTML = `
-    <p><b>ABM:</b> può assumere valori negativi</p>
-    <p><b>GBM:</b> resta sempre positivo (modello realistico per prezzi)</p>
+  if (T <= 0 || n <= 0 || sigma < 0 || theta < 0) {
+    output.innerHTML = `<p>Controlla i parametri: T e n devono essere positivi, σ e θ non negativi.</p>`;
+    return;
+  }
+
+  const abm = generaABM_HMW5(x0, T, n, mu, sigma);
+  const gbm = generaGBM_HMW5(x0, T, n, mu, sigma);
+  const ou = generaOU_HMW5(x0, T, n, theta, m, sigma);
+
+  animaConfrontoHMW5("canvas-hmw5", abm, gbm, ou);
+
+  const abmFinal = abm[abm.length - 1];
+  const gbmFinal = gbm[gbm.length - 1];
+  const ouFinal = ou[ou.length - 1];
+
+  output.innerHTML = `
+    <h3>Confronto tra processi</h3>
+
+    <p><strong>ABM:</strong> valore finale = ${abmFinal.toFixed(3)}</p>
+    <p><strong>GBM:</strong> valore finale = ${gbmFinal.toFixed(3)}</p>
+    <p><strong>OU:</strong> valore finale = ${ouFinal.toFixed(3)}</p>
+
+    <div class="hmw5-note">
+      <strong>Interpretazione:</strong>
+      l’<strong>ABM</strong> evolve in modo additivo e può assumere anche valori negativi;
+      il <strong>GBM</strong> evolve in modo moltiplicativo e resta positivo, per questo è più usato
+      per modellare prezzi; il processo di <strong>Ornstein–Uhlenbeck</strong> mostra invece
+      <em>mean reversion</em>, cioè tende a ritornare verso una media di lungo periodo.
+    </div>
   `;
+}
+
+function resetHMW5() {
+  const output = document.getElementById("output-hmw5");
+  const canvas = document.getElementById("canvas-hmw5");
+
+  if (hmw5AnimationId) {
+    cancelAnimationFrame(hmw5AnimationId);
+    hmw5AnimationId = null;
+  }
+
+  if (output) {
+    output.innerHTML = `<p>Qui comparirà il confronto tra ABM, GBM e processo di Ornstein–Uhlenbeck.</p>`;
+  }
+
+  if (canvas) {
+    canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+  }
 }
