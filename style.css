@@ -315,3 +315,255 @@
   80%  { transform: translate(-6px, -10px); }
   100% { transform: translate(0, 0); }
 }
+/* ===== HOME WOW UPGRADE ===== */
+
+.forest-home {
+  background:
+    radial-gradient(circle at 15% 20%, rgba(204, 231, 210, 0.9), transparent 22%),
+    radial-gradient(circle at 85% 18%, rgba(182, 214, 191, 0.6), transparent 24%),
+    radial-gradient(circle at 70% 80%, rgba(176, 207, 184, 0.45), transparent 22%),
+    linear-gradient(135deg, #f5f2ea 0%, #edf4ee 45%, #dfe8df 100%);
+}
+
+.home-glow {
+  opacity: 0.5;
+  filter: blur(110px);
+}
+
+.home-glow-1 {
+  width: 340px;
+  height: 340px;
+}
+
+.home-glow-2 {
+  width: 420px;
+  height: 420px;
+}
+
+.home-glow-3 {
+  width: 300px;
+  height: 300px;
+}
+
+.home-firefly {
+  width: 10px;
+  height: 10px;
+  box-shadow: 0 0 18px rgba(255, 224, 130, 1);
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 62px 56px;
+  border-radius: 34px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.82), rgba(244,248,244,0.7)),
+    radial-gradient(circle at top right, rgba(190, 219, 196, 0.35), transparent 32%);
+  box-shadow:
+    0 30px 70px rgba(38, 66, 47, 0.12),
+    inset 0 1px 0 rgba(255,255,255,0.4);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  right: -60px;
+  top: -60px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(180, 208, 186, 0.35), transparent 70%);
+  animation: slowPulseHero 8s ease-in-out infinite;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  left: -50px;
+  bottom: -50px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(244, 228, 190, 0.22), transparent 70%);
+  animation: slowPulseHero 10s ease-in-out infinite reverse;
+}
+
+.hero h1 {
+  font-size: 54px;
+  line-height: 1.06;
+  max-width: 900px;
+}
+
+.hero p {
+  font-size: 19px;
+  max-width: 860px;
+}
+
+.hero-btn {
+  padding: 15px 26px;
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(59, 95, 72, 0.16);
+}
+
+.intro-card {
+  border-radius: 28px;
+  box-shadow: 0 18px 34px rgba(38, 66, 47, 0.09);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.intro-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 44px rgba(38, 66, 47, 0.14);
+}
+
+.weeks-grid {
+  grid-template-columns: repeat(2, minmax(340px, 1fr));
+  gap: 30px;
+}
+
+.week-card {
+  min-height: 360px;
+  padding: 38px 36px 34px;
+  border-radius: 34px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.9), rgba(244,248,244,0.82)),
+    radial-gradient(circle at top right, rgba(214, 229, 216, 0.35), transparent 32%);
+  box-shadow:
+    0 24px 48px rgba(38, 66, 47, 0.1),
+    inset 0 1px 0 rgba(255,255,255,0.48);
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.week-card:hover {
+  transform: translateY(-12px) scale(1.015);
+  box-shadow:
+    0 34px 62px rgba(38, 66, 47, 0.16),
+    0 0 0 1px rgba(146, 177, 154, 0.24);
+}
+
+.week-card::before {
+  height: 7px;
+  background: linear-gradient(90deg, #76957d, #d5e3d7);
+}
+
+.week-ornament {
+  width: 120px;
+  height: 120px;
+  opacity: 0.22;
+  top: 12px;
+  right: 10px;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.week-card:hover .week-ornament {
+  transform: scale(1.12) rotate(6deg);
+  opacity: 0.3;
+}
+
+.week-icon {
+  width: 74px;
+  height: 74px;
+  border-radius: 20px;
+  margin-bottom: 22px;
+  box-shadow:
+    inset 0 0 0 1px rgba(170, 193, 174, 0.45),
+    0 16px 26px rgba(38, 66, 47, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.week-card:hover .week-icon {
+  transform: translateY(-4px) scale(1.08) rotate(-2deg);
+  box-shadow:
+    inset 0 0 0 1px rgba(170, 193, 174, 0.45),
+    0 22px 34px rgba(38, 66, 47, 0.16);
+}
+
+.week-meta {
+  font-size: 14px;
+  letter-spacing: 1.2px;
+  margin-bottom: 10px;
+}
+
+.week-card h3 {
+  font-size: 28px;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.week-card p {
+  font-size: 17px;
+  line-height: 1.8;
+  margin-bottom: 28px;
+}
+
+.week-card span {
+  font-size: 18px;
+}
+
+.week-card span::after {
+  width: 56px;
+  height: 2px;
+}
+
+.week-card:hover span::after {
+  width: 88px;
+}
+
+/* ornamenti ancora più evidenti */
+.week-ornament-leaf::before {
+  width: 46px;
+  height: 72px;
+}
+
+.week-ornament-branch::before {
+  width: 66px;
+  top: 48px;
+}
+
+.week-ornament-seed::before {
+  width: 44px;
+  height: 44px;
+}
+
+.week-ornament-owl::before {
+  width: 46px;
+  height: 46px;
+}
+
+.week-ornament-flower::before {
+  width: 18px;
+  height: 18px;
+  box-shadow:
+    0 -18px 0 #b8cbb8,
+    0 18px 0 #b8cbb8,
+    -18px 0 0 #b8cbb8,
+    18px 0 0 #b8cbb8;
+}
+
+@keyframes slowPulseHero {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1000px) {
+  .weeks-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding: 40px 28px;
+  }
+
+  .hero h1 {
+    font-size: 40px;
+  }
+}
