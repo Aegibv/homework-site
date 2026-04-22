@@ -3,43 +3,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Weekly Homework Hub</title>
+  <title>Homework Archive</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="forest-home">
 
   <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-top">
-      <h2>Homework Hub</h2>
+      <h2>Homework Archive</h2>
       <button class="close-btn" onclick="toggleSidebar()">✕</button>
     </div>
 
     <p class="sidebar-text">Seleziona una settimana</p>
 
     <nav class="sidebar-nav">
-      <a href="settimane/settimana1.html" target="_blank">🍃 Settimana 1</a>
-      <a href="settimane/settimana2.html" target="_blank">🌿 Settimana 2</a>
-      <a href="settimane/settimana3.html" target="_blank">☘️ Settimana 3</a>
-      <a href="settimane/settimana4.html" target="_blank">🦜 Settimana 4</a>
-      <a href="settimane/settimana5.html" target="_blank">🌻 Settimana 5</a>
+      <a href="settimane/settimana1.html" target="_blank">
+        <span class="nav-mark"></span>
+        <span>Settimana 1</span>
+      </a>
+      <a href="settimane/settimana2.html" target="_blank">
+        <span class="nav-mark"></span>
+        <span>Settimana 2</span>
+      </a>
+      <a href="settimane/settimana3.html" target="_blank">
+        <span class="nav-mark"></span>
+        <span>Settimana 3</span>
+      </a>
+      <a href="settimane/settimana4.html" target="_blank">
+        <span class="nav-mark"></span>
+        <span>Settimana 4</span>
+      </a>
+      <a href="settimane/settimana5.html" target="_blank">
+        <span class="nav-mark"></span>
+        <span>Settimana 5</span>
+      </a>
     </nav>
   </aside>
 
   <main class="main-content">
     <header class="topbar">
       <button class="menu-btn" onclick="toggleSidebar()">☰</button>
-      <div class="brand">Weekly Homework Hub</div>
+      <div class="brand">Homework Archive</div>
     </header>
 
     <section class="hero">
-      <div class="hero-badge">Academic Portfolio</div>
-      <h1>Benvenuto nel mio spazio dedicato agli homework settimanali</h1>
+      <div class="hero-badge">Archivio accademico</div>
+      <h1>Archivio degli homework settimanali</h1>
       <p>
-        Questo sito raccoglie in modo ordinato e accessibile gli homework del corso,
-        suddivisi per settimana. Ogni pagina contiene il materiale relativo al lavoro svolto,
-        così da offrire una consultazione chiara, elegante e immediata.
+        Questo sito raccoglie in modo ordinato il materiale sviluppato durante il corso,
+        suddiviso per settimana e organizzato in parte teorica e parte applicativa.
+        L’obiettivo è costruire uno spazio chiaro, coerente e facilmente consultabile.
       </p>
       <a href="#settimane" class="hero-btn">Esplora le settimane</a>
     </section>
@@ -48,25 +63,28 @@
       <div class="intro-card">
         <h2>Introduzione</h2>
         <p>
-          Ho creato questo sito come archivio personale degli homework caricati durante il corso.
-          La struttura permette di consultare facilmente ogni settimana e di mantenere una raccolta
-          ordinata dei lavori svolti.
+          Il sito nasce come archivio personale degli homework svolti durante il corso.
+          Ogni sezione è pensata per raccogliere in modo ordinato il lavoro sviluppato
+          settimana dopo settimana, mantenendo una struttura chiara e uniforme.
         </p>
       </div>
 
       <div class="intro-card">
         <h2>Organizzazione</h2>
         <p>
-          Ogni homework è inserito in una pagina separata. Dal menu laterale o dalle card qui sotto
-          puoi aprire direttamente la settimana desiderata in una nuova pagina.
+          Ogni homework è inserito in una pagina dedicata. Dalla navigazione laterale
+          oppure dalle card qui sotto è possibile accedere direttamente alla settimana
+          desiderata e consultare i materiali in modo immediato.
         </p>
       </div>
-    </section>
+
       <div class="intro-card">
         <h2>Profilo del gestore</h2>
         <p>
-          Questa piattaforma viene gestita da Andrea Giubbetto.
-          È uno studente di Statistica in magistrale, corso di Data Analytics.
+          Questa piattaforma è gestita da Andrea Giubbetto, studente magistrale
+          in ambito statistico e data analytics. Il sito raccoglie gli elaborati
+          del corso in forma progressiva, con particolare attenzione alla chiarezza
+          espositiva e alla continuità tra teoria e applicazione.
         </p>
       </div>
     </section>
@@ -76,35 +94,42 @@
 
       <div class="weeks-grid">
         <a class="week-card" href="settimane/settimana1.html" target="_blank">
-          <div class="week-icon">🍃</div>
-          <h3>Settimana 1</h3>
-          <p>Apri l’homework della prima settimana.</p>
+          <div class="week-icon week-icon-leaf"></div>
+          <div class="week-meta">Settimana 1</div>
+          <h3>Introduzione e primi esercizi</h3>
+          <p>Primo homework con struttura iniziale del lavoro e materiale della settimana.</p>
           <span>Apri pagina →</span>
         </a>
 
         <a class="week-card" href="settimane/settimana2.html" target="_blank">
-          <div class="week-icon">🌿</div>
-          <h3>Settimana 2</h3>
-          <p>Consulta il materiale della seconda settimana.</p>
+          <div class="week-icon week-icon-branch"></div>
+          <div class="week-meta">Settimana 2</div>
+          <h3>Media, varianza e distribuzioni</h3>
+          <p>Confronto tra algoritmo naive e online, con approfondimento teorico.</p>
           <span>Apri pagina →</span>
         </a>
 
         <a class="week-card" href="settimane/settimana3.html" target="_blank">
-          <div class="week-icon">☘️</div>
-          <h3>Settimana 3</h3>
-          <p>Visualizza il contenuto della terza settimana.</p>
+          <div class="week-icon week-icon-seed"></div>
+          <div class="week-meta">Settimana 3</div>
+          <h3>Random walk e introduzione ai mercati</h3>
+          <p>Simulazione di traiettorie discrete e analisi teorica dei mercati finanziari.</p>
           <span>Apri pagina →</span>
         </a>
+
         <a class="week-card" href="settimane/settimana4.html" target="_blank">
-          <div class="week-icon">🦜</div>
-          <h3>Settimana 4</h3>
-          <p>Visualizza il contenuto della quarta settimana.</p>
+          <div class="week-icon week-icon-owl"></div>
+          <div class="week-meta">Settimana 4</div>
+          <h3>Donsker e convergenza al Browniano</h3>
+          <p>Random walk scalata, principio di invarianza e collegamento al moto browniano.</p>
           <span>Apri pagina →</span>
         </a>
+
         <a class="week-card" href="settimane/settimana5.html" target="_blank">
-          <div class="week-icon">🌻</div>
-          <h3>Settimana 5</h3>
-          <p>Simulazione ABM, GBM e Mean Reversion.</p>
+          <div class="week-icon week-icon-flower"></div>
+          <div class="week-meta">Settimana 5</div>
+          <h3>ABM, GBM e mean reversion</h3>
+          <p>Confronto tra diversi processi stocastici con sviluppo teorico e simulazione.</p>
           <span>Apri pagina →</span>
         </a>
       </div>
