@@ -4,9 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Homework Archive</title>
-  <link rel="stylesheet" href="style.css?v=1" />
-  <link rel="stylesheet" href="home.css?v=1" />
+  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="stylesheet" href="home.css?v=3" />
 </head>
+
 <body class="home-page">
 
   <div class="home-ambient" aria-hidden="true">
@@ -33,27 +34,32 @@
     <p class="sidebar-text">Seleziona una settimana</p>
 
     <nav class="sidebar-nav">
-      <a href="settimane/settimana1.html" target="_blank">
+      <a href="settimane/settimana1.html" onclick="toggleSidebar()">
         <span class="nav-mark"></span>
         <span>Settimana 1</span>
       </a>
-      <a href="settimane/settimana2.html" target="_blank">
+
+      <a href="settimane/settimana2.html" onclick="toggleSidebar()">
         <span class="nav-mark"></span>
         <span>Settimana 2</span>
       </a>
-      <a href="settimane/settimana3.html" target="_blank">
+
+      <a href="settimane/settimana3.html" onclick="toggleSidebar()">
         <span class="nav-mark"></span>
         <span>Settimana 3</span>
       </a>
-      <a href="settimane/settimana4.html" target="_blank">
+
+      <a href="settimane/settimana4.html" onclick="toggleSidebar()">
         <span class="nav-mark"></span>
         <span>Settimana 4</span>
       </a>
-      <a href="settimane/settimana5.html" target="_blank">
+
+      <a href="settimane/settimana5.html" onclick="toggleSidebar()">
         <span class="nav-mark"></span>
         <span>Settimana 5</span>
       </a>
-      <a href="settimane/settimana6.html" target="_blank">
+
+      <a href="settimane/settimana6.html" onclick="toggleSidebar()">
         <span class="nav-mark"></span>
         <span>Settimana 6</span>
       </a>
@@ -106,7 +112,7 @@
       <h2 class="section-title">Settimane disponibili</h2>
 
       <div class="weeks-grid">
-        <a class="week-card" href="settimane/settimana1.html" target="_blank">
+        <a class="week-card" href="settimane/settimana1.html">
           <div class="week-icon week-icon-leaf"></div>
           <div class="week-meta">Settimana 1</div>
           <h3>Introduzione e primi esercizi</h3>
@@ -114,7 +120,7 @@
           <span>Apri pagina →</span>
         </a>
 
-        <a class="week-card" href="settimane/settimana2.html" target="_blank">
+        <a class="week-card" href="settimane/settimana2.html">
           <div class="week-icon week-icon-branch"></div>
           <div class="week-meta">Settimana 2</div>
           <h3>Media, varianza e distribuzioni</h3>
@@ -122,7 +128,7 @@
           <span>Apri pagina →</span>
         </a>
 
-        <a class="week-card" href="settimane/settimana3.html" target="_blank">
+        <a class="week-card" href="settimane/settimana3.html">
           <div class="week-icon week-icon-seed"></div>
           <div class="week-meta">Settimana 3</div>
           <h3>Random walk e introduzione ai mercati</h3>
@@ -130,7 +136,7 @@
           <span>Apri pagina →</span>
         </a>
 
-        <a class="week-card" href="settimane/settimana4.html" target="_blank">
+        <a class="week-card" href="settimane/settimana4.html">
           <div class="week-icon week-icon-owl"></div>
           <div class="week-meta">Settimana 4</div>
           <h3>Donsker e convergenza al Browniano</h3>
@@ -138,7 +144,7 @@
           <span>Apri pagina →</span>
         </a>
 
-        <a class="week-card" href="settimane/settimana5.html" target="_blank">
+        <a class="week-card" href="settimane/settimana5.html">
           <div class="week-icon week-icon-flower"></div>
           <div class="week-meta">Settimana 5</div>
           <h3>ABM, GBM e mean reversion</h3>
@@ -146,7 +152,7 @@
           <span>Apri pagina →</span>
         </a>
 
-        <a class="week-card" href="settimane/settimana6.html" target="_blank">
+        <a class="week-card" href="settimane/settimana6.html">
           <div class="week-icon week-icon-seed"></div>
           <div class="week-meta">Settimana 6</div>
           <h3>Strategie, PnL e Drawdown</h3>
