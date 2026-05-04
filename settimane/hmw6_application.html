@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Homework 6 - Application</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="week-page">
+  <div class="week-wrapper">
+    <a href="settimana6.html" class="back-link">← Torna a Homework 6</a>
+
+    <div class="content-card">
+      <h1>Homework 6 - Application</h1>
+
+      <p>
+        Simulazione di un prezzo tramite GBM e confronto tra due strategie:
+        una trend-following semplice e una basata su media mobile.
+      </p>
+
+      <div class="homework-box">
+        <h2>Parametri</h2>
+
+        <p>
+          <label>S₀:</label>
+          <input type="number" id="s0-hmw6" value="100">
+        </p>
+
+        <p>
+          <label>Numero step:</label>
+          <input type="number" id="n-hmw6" value="300">
+        </p>
+
+        <p>
+          <label>μ:</label>
+          <input type="number" id="mu-hmw6" value="0.08" step="0.01">
+        </p>
+
+        <p>
+          <label>σ:</label>
+          <input type="number" id="sigma-hmw6" value="0.25" step="0.01">
+        </p>
+
+        <p>
+          <label>Finestra media mobile:</label>
+          <input type="number" id="window-hmw6" value="20">
+        </p>
+
+        <button onclick="eseguiHMW6()">Simula strategie</button>
+        <button onclick="resetHMW6()">Reset</button>
+      </div>
+
+      <div class="homework-box">
+        <h2>Prezzo simulato</h2>
+        <canvas id="canvas-price-hmw6" width="900" height="320"></canvas>
+      </div>
+
+      <div class="homework-box">
+        <h2>PnL strategie</h2>
+        <canvas id="canvas-pnl-hmw6" width="900" height="320"></canvas>
+      </div>
+
+      <div class="homework-box">
+        <h2>Drawdown</h2>
+        <canvas id="canvas-dd-hmw6" width="900" height="320"></canvas>
+      </div>
+
+      <div id="output-hmw6" class="homework-box">
+        <p>Qui compariranno i risultati della simulazione.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="../script.js"></script>
+</body>
+</html>

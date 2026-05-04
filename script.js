@@ -912,3 +912,230 @@ function resetHMW5() {
     canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
   }
 }
+
+/* =========================
+   HMW6 - Strategy, PnL, Drawdown
+========================= */
+
+function normalHMW6() {
+  const u1 = Math.random();
+  const u2 = Math.random();
+  return Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+}
+
+function generaGBM_HMW6(S0, n, mu, sigma) {
+  const dt = 1 / n;
+  const prices = [S0];
+
+  for (let i = 1; i <= n; i++) {
+    const z = normalHMW6();
+    const next = prices[i - 1] * Math.exp(
+      (mu - 0.5 * sigma * sigma) * dt + sigma * Math.sqrt(dt) * z
+    );
+    prices.push(next);
+  }
+
+  return prices;
+}
+
+function strategiaTrendFollowing(prices) {
+  const position = [0];
+  const pnl = [0];
+
+  for (let i = 1; i < prices.length; i++) {
+    const change = prices[i] - prices[i - 1];
+
+    const pos = change >= 0 ? 1 : -1;
+    position.push(pos);
+
+    const profit = position[i - 1] * change;
+    pnl.push(pnl[i - 1] + profit);
+  }
+
+  return { position, pnl };
+}
+
+function mediaMobile(prices, window) {
+  const ma = [];
+
+  for (let i = 0; i < prices.length; i++) {
+    if (i < window) {
+      ma.push(null);
+    } else {
+      let sum = 0;
+      for (let j = i - window; j < i; j++) {
+        sum += prices[j];
+      }
+      ma.push(sum / window);
+    }
+  }
+
+  return ma;
+}
+
+function strategiaMediaMobile(prices, window) {
+  const ma = mediaMobile(prices, window);
+  const position = [0];
+  const pnl = [0];
+
+  for (let i = 1; i < prices.length; i++) {
+    let pos = 0;
+
+    if (ma[i] !== null) {
+      pos = prices[i - 1] > ma[i - 1] ? 1 : -1;
+    }
+
+    position.push(pos);
+
+    const change = prices[i] - prices[i - 1];
+    const profit = position[i - 1] * change;
+    pnl.push(pnl[i - 1] + profit);
+  }
+
+  return { position, pnl, ma };
+}
+
+function calcolaDrawdown(pnl) {
+  const dd = [];
+  let peak = pnl[0];
+  let maxDD = 0;
+
+  for (let i = 0; i < pnl.length; i++) {
+    if (pnl[i] > peak) peak = pnl[i];
+
+    const drawdown = peak - pnl[i];
+    dd.push(drawdown);
+
+    if (drawdown > maxDD) maxDD = drawdown;
+  }
+
+  return { dd, maxDD };
+}
+
+function disegnaLineaHMW6(canvasId, datasets) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const padding = 40;
+
+  const allValues = datasets
+    .flatMap(d => d.data)
+    .filter(v => v !== null && !Number.isNaN(v));
+
+  const min = Math.min(...allValues);
+  const max = Math.max(...allValues);
+
+  const scaleX = (canvas.width - 2 * padding) / (datasets[0].data.length - 1);
+  const scaleY = (canvas.height - 2 * padding) / (max - min || 1);
+
+  ctx.strokeStyle = "#466653";
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(padding, padding);
+  ctx.lineTo(padding, canvas.height - padding);
+  ctx.lineTo(canvas.width - padding, canvas.height - padding);
+  ctx.stroke();
+
+  datasets.forEach(dataset => {
+    ctx.strokeStyle = dataset.color;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+
+    let started = false;
+
+    for (let i = 0; i < dataset.data.length; i++) {
+      const value = dataset.data[i];
+
+      if (value === null || Number.isNaN(value)) continue;
+
+      const x = padding + i * scaleX;
+      const y = canvas.height - padding - (value - min) * scaleY;
+
+      if (!started) {
+        ctx.moveTo(x, y);
+        started = true;
+      } else {
+        ctx.lineTo(x, y);
+      }
+    }
+
+    ctx.stroke();
+  });
+}
+
+function eseguiHMW6() {
+  const S0 = parseFloat(document.getElementById("s0-hmw6").value);
+  const n = parseInt(document.getElementById("n-hmw6").value);
+  const mu = parseFloat(document.getElementById("mu-hmw6").value);
+  const sigma = parseFloat(document.getElementById("sigma-hmw6").value);
+  const window = parseInt(document.getElementById("window-hmw6").value);
+
+  const output = document.getElementById("output-hmw6");
+
+  if ([S0, n, mu, sigma, window].some(v => Number.isNaN(v)) || n <= 0 || window <= 1) {
+    output.innerHTML = "<p>Inserisci parametri validi.</p>";
+    return;
+  }
+
+  const prices = generaGBM_HMW6(S0, n, mu, sigma);
+
+  const trend = strategiaTrendFollowing(prices);
+  const movingAverage = strategiaMediaMobile(prices, window);
+
+  const ddTrend = calcolaDrawdown(trend.pnl);
+  const ddMA = calcolaDrawdown(movingAverage.pnl);
+
+  const pnlTrendFinale = trend.pnl[trend.pnl.length - 1];
+  const pnlMAFinale = movingAverage.pnl[movingAverage.pnl.length - 1];
+
+  disegnaLineaHMW6("canvas-price-hmw6", [
+    { data: prices, color: "#2f5d44" },
+    { data: movingAverage.ma, color: "#c48a3a" }
+  ]);
+
+  disegnaLineaHMW6("canvas-pnl-hmw6", [
+    { data: trend.pnl, color: "#2f5d44" },
+    { data: movingAverage.pnl, color: "#8b5cf6" }
+  ]);
+
+  disegnaLineaHMW6("canvas-dd-hmw6", [
+    { data: ddTrend.dd, color: "#b91c1c" },
+    { data: ddMA.dd, color: "#c48a3a" }
+  ]);
+
+  output.innerHTML = `
+    <h2>Risultati</h2>
+
+    <p><strong>Strategia 1 - Trend following</strong></p>
+    <p>PnL finale: <strong>${pnlTrendFinale.toFixed(3)}</strong></p>
+    <p>Massimo Drawdown: <strong>${ddTrend.maxDD.toFixed(3)}</strong></p>
+
+    <p><strong>Strategia 2 - Media mobile</strong></p>
+    <p>PnL finale: <strong>${pnlMAFinale.toFixed(3)}</strong></p>
+    <p>Massimo Drawdown: <strong>${ddMA.maxDD.toFixed(3)}</strong></p>
+
+    <p>
+      La strategia trend-following reagisce immediatamente alla variazione del prezzo,
+      mentre la strategia basata su media mobile è più lenta ma può filtrare parte del rumore.
+      Il drawdown permette di valutare il rischio della strategia, misurando la massima perdita
+      rispetto a un precedente picco del PnL.
+    </p>
+  `;
+}
+
+function resetHMW6() {
+  ["canvas-price-hmw6", "canvas-pnl-hmw6", "canvas-dd-hmw6"].forEach(id => {
+    const canvas = document.getElementById(id);
+    if (canvas) {
+      canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+    }
+  });
+
+  const output = document.getElementById("output-hmw6");
+  if (output) {
+    output.innerHTML = "<p>Qui compariranno i risultati della simulazione.</p>";
+  }
+}
