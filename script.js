@@ -2,9 +2,27 @@ function toggleSidebar() {
   const sidebar = document.getElementById("sidebar");
   const overlay = document.getElementById("overlay");
 
+  if (!sidebar || !overlay) return;
+
   sidebar.classList.toggle("active");
   overlay.classList.toggle("active");
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.getElementById("overlay");
+  const links = document.querySelectorAll(".sidebar-nav a");
+
+  if (sidebar) sidebar.classList.remove("active");
+  if (overlay) overlay.classList.remove("active");
+
+  links.forEach(link => {
+    link.addEventListener("click", function () {
+      if (sidebar) sidebar.classList.remove("active");
+      if (overlay) overlay.classList.remove("active");
+    });
+  });
+});
 
 /* HOMEWORK SETTIMANA 1 */
 
