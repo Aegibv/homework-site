@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework 7 - Optional Research</title>
+  <link rel="stylesheet" href="../style.css">
+
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(', '\\)'], ['$', '$']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+
+<body class="week-page">
+  <div class="week-wrapper">
+    <a href="settimana7.html" class="back-link">← Torna a Homework 7</a>
+
+    <div class="content-card">
+      <h1>Homework 7 - Optional Research</h1>
+
+      <p>
+        Questa sezione opzionale approfondisce il ruolo delle opzioni come strumenti
+        derivati, la loro relazione con l’underlying e le principali strategie classiche
+        costruite combinando payoff differenti.
+      </p>
+
+      <div class="homework-box">
+        <h2>1. Opzioni e underlying</h2>
+
+        <p>
+          Un’opzione è uno strumento derivato il cui valore dipende dal prezzo di
+          un’attività sottostante, detta underlying. L’underlying può essere, ad esempio,
+          un’azione, un indice, una valuta o una commodity.
+        </p>
+
+        <p>
+          Una <strong>call option</strong> dà il diritto, ma non l’obbligo, di acquistare
+          l’underlying a un prezzo prefissato \(K\), detto strike price. Una
+          <strong>put option</strong> dà invece il diritto di vendere l’underlying allo
+          strike price.
+        </p>
+      </div>
+
+      <div class="homework-box">
+        <h2>2. Payoff di call e put</h2>
+
+        <p>
+          Il payoff finale di una call europea è:
+        </p>
+
+        <p>
+          \[
+          C_T = \max(S_T - K, 0)
+          \]
+        </p>
+
+        <p>
+          Il payoff finale di una put europea è:
+        </p>
+
+        <p>
+          \[
+          P_T = \max(K - S_T, 0)
+          \]
+        </p>
+
+        <p>
+          dove \(S_T\) è il prezzo dell’underlying alla scadenza e \(K\) è lo strike.
+        </p>
+      </div>
+
+      <div class="homework-box">
+        <h2>3. Strategie classiche con opzioni</h2>
+
+        <p>
+          Le opzioni possono essere combinate per costruire strategie con profili
+          di payoff differenti. Alcune strategie sono direzionali, cioè puntano
+          su rialzo o ribasso del sottostante; altre sono basate sulla volatilità.
+        </p>
+
+        <p>
+          <strong>Covered call:</strong> consiste nel detenere l’underlying e vendere
+          una call. È usata per generare un premio, ma limita il guadagno massimo.
+        </p>
+
+        <p>
+          <strong>Protective put:</strong> consiste nel detenere l’underlying e acquistare
+          una put. Funziona come una forma di assicurazione contro forti ribassi.
+        </p>
+
+        <p>
+          <strong>Straddle:</strong> consiste nell’acquistare una call e una put con
+          lo stesso strike e la stessa scadenza. È utile quando ci si aspetta forte
+          volatilità, ma non si conosce la direzione del movimento.
+        </p>
+
+        <p>
+          <strong>Strangle:</strong> simile allo straddle, ma call e put hanno strike
+          diversi. Costa meno dello straddle, ma richiede movimenti più ampi per
+          diventare profittevole.
+        </p>
+
+        <p>
+          <strong>Bull spread:</strong> strategia direzionale rialzista costruita con
+          opzioni a strike differenti. Limita sia il profitto massimo sia la perdita
+          massima.
+        </p>
+
+        <p>
+          <strong>Bear spread:</strong> strategia direzionale ribassista costruita
+          per guadagnare quando il prezzo dell’underlying scende.
+        </p>
+      </div>
+
+      <div class="homework-box">
+        <h2>4. Costruzione di payoff arbitrari</h2>
+
+        <p>
+          Combinando più opzioni è possibile costruire payoff complessi. In generale,
+          il payoff complessivo di un portafoglio di opzioni può essere scritto come
+          somma pesata dei singoli payoff:
+        </p>
+
+        <p>
+          \[
+          \Pi(S_T)=
+          \sum_{i=1}^{n} q_i \cdot \text{Payoff}_i(S_T)
+          \]
+        </p>
+
+        <p>
+          dove \(q_i\) rappresenta la quantità acquistata o venduta della singola
+          opzione. Se \(q_i > 0\), la posizione è long; se \(q_i < 0\), la posizione
+          è short.
+        </p>
+
+        <p>
+          Questa idea permette di costruire scenari di payoff personalizzati, combinando
+          call, put e underlying in base alle aspettative sul mercato e al livello di
+          rischio desiderato.
+        </p>
+      </div>
+
+      <div class="homework-box">
+        <h2>Fonti</h2>
+        <p>
+          <a href="https://en.wikipedia.org/wiki/Option_(finance)" target="_blank">Option - Finance</a><br>
+          <a href="https://en.wikipedia.org/wiki/Call_option" target="_blank">Call option</a><br>
+          <a href="https://en.wikipedia.org/wiki/Put_option" target="_blank">Put option</a><br>
+          <a href="https://en.wikipedia.org/wiki/Options_strategy" target="_blank">Options strategy</a><br>
+          <a href="https://www.investopedia.com/options-basics-tutorial-4583012" target="_blank">Investopedia - Options Basics</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
