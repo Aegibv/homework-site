@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Homework 8 - Application</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="week-page">
+  <div class="week-wrapper">
+    <a href="settimana8.html" class="back-link">← Torna a Homework 8</a>
+
+    <div class="content-card">
+      <h1>Homework 8 - Payoff delle opzioni</h1>
+
+      <p>
+        Questa applicazione calcola il payoff complessivo di un portafoglio
+        composto da opzioni call e put, in posizione long o short.
+      </p>
+
+      <div class="homework-box">
+        <h2>Nuova opzione</h2>
+
+        <p>
+          <label>Tipo:</label>
+          <select id="option-type">
+            <option value="call">Call</option>
+            <option value="put">Put</option>
+          </select>
+        </p>
+
+        <p>
+          <label>Posizione:</label>
+          <select id="option-position">
+            <option value="long">Long</option>
+            <option value="short">Short</option>
+          </select>
+        </p>
+
+        <p>
+          <label>Strike K:</label>
+          <input type="number" id="option-strike" value="100">
+        </p>
+
+        <p>
+          <label>Premio:</label>
+          <input type="number" id="option-premium" value="5">
+        </p>
+
+        <p>
+          <label>Quantità:</label>
+          <input type="number" id="option-quantity" value="1">
+        </p>
+
+        <button onclick="aggiungiOpzione()">Aggiungi opzione</button>
+        <button onclick="caricaEsempioStraddle()">Esempio Straddle</button>
+        <button onclick="resetOpzioni()">Reset</button>
+      </div>
+
+      <div class="homework-box">
+        <h2>Portafoglio opzioni</h2>
+        <div id="options-list">
+          <p>Nessuna opzione inserita.</p>
+        </div>
+      </div>
+
+      <div class="homework-box">
+        <h2>Grafico payoff globale</h2>
+        <canvas id="payoff-canvas" width="900" height="420"></canvas>
+      </div>
+
+      <div id="payoff-output" class="homework-box">
+        <p>Qui compariranno i risultati del payoff complessivo.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="../script.js"></script>
+</body>
+</html>

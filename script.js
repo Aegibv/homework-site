@@ -1157,3 +1157,285 @@ function resetHMW6() {
     output.innerHTML = "<p>Qui compariranno i risultati della simulazione.</p>";
   }
 }
+
+/* =========================
+   HMW8 - Payoff opzioni
+========================= */
+
+let portfolioOptions = [];
+
+function payoffSingolaOpzione(option, ST) {
+  let intrinsicValue = 0;
+
+  if (option.type === "call") {
+    intrinsicValue = Math.max(ST - option.strike, 0);
+  } else if (option.type === "put") {
+    intrinsicValue = Math.max(option.strike - ST, 0);
+  }
+
+  let payoff = intrinsicValue - option.premium;
+
+  if (option.position === "short") {
+    payoff = -payoff;
+  }
+
+  return payoff * option.quantity;
+}
+
+function payoffTotalePortfolio(options, ST) {
+  let total = 0;
+
+  for (let i = 0; i < options.length; i++) {
+    total += payoffSingolaOpzione(options[i], ST);
+  }
+
+  return total;
+}
+
+function aggiungiOpzione() {
+  const type = document.getElementById("option-type").value;
+  const position = document.getElementById("option-position").value;
+  const strike = parseFloat(document.getElementById("option-strike").value);
+  const premium = parseFloat(document.getElementById("option-premium").value);
+  const quantity = parseFloat(document.getElementById("option-quantity").value);
+
+  if (
+    Number.isNaN(strike) ||
+    Number.isNaN(premium) ||
+    Number.isNaN(quantity) ||
+    strike <= 0 ||
+    premium < 0 ||
+    quantity === 0
+  ) {
+    alert("Inserisci valori validi.");
+    return;
+  }
+
+  portfolioOptions.push({
+    type,
+    position,
+    strike,
+    premium,
+    quantity
+  });
+
+  aggiornaPortfolio();
+}
+
+function rimuoviOpzione(index) {
+  portfolioOptions.splice(index, 1);
+  aggiornaPortfolio();
+}
+
+function resetOpzioni() {
+  portfolioOptions = [];
+  aggiornaPortfolio();
+
+  const canvas = document.getElementById("payoff-canvas");
+  if (canvas) {
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+
+  const output = document.getElementById("payoff-output");
+  if (output) {
+    output.innerHTML = "<p>Qui compariranno i risultati del payoff complessivo.</p>";
+  }
+}
+
+function caricaEsempioStraddle() {
+  portfolioOptions = [
+    {
+      type: "call",
+      position: "long",
+      strike: 100,
+      premium: 5,
+      quantity: 1
+    },
+    {
+      type: "put",
+      position: "long",
+      strike: 100,
+      premium: 4,
+      quantity: 1
+    }
+  ];
+
+  aggiornaPortfolio();
+}
+
+function aggiornaPortfolio() {
+  const list = document.getElementById("options-list");
+  const output = document.getElementById("payoff-output");
+
+  if (!list) return;
+
+  if (portfolioOptions.length === 0) {
+    list.innerHTML = "<p>Nessuna opzione inserita.</p>";
+    return;
+  }
+
+  let html = `
+    <table class="hmw2-table">
+      <tr>
+        <th>#</th>
+        <th>Tipo</th>
+        <th>Posizione</th>
+        <th>Strike</th>
+        <th>Premio</th>
+        <th>Quantità</th>
+        <th>Azione</th>
+      </tr>
+  `;
+
+  portfolioOptions.forEach((opt, index) => {
+    html += `
+      <tr>
+        <td>${index + 1}</td>
+        <td>${opt.type}</td>
+        <td>${opt.position}</td>
+        <td>${opt.strike}</td>
+        <td>${opt.premium}</td>
+        <td>${opt.quantity}</td>
+        <td><button onclick="rimuoviOpzione(${index})">Rimuovi</button></td>
+      </tr>
+    `;
+  });
+
+  html += "</table>";
+
+  list.innerHTML = html;
+
+  disegnaPayoffPortfolio();
+
+  if (output) {
+    const risultati = calcolaRisultatiPayoff();
+
+    output.innerHTML = `
+      <h2>Risultati</h2>
+
+      <p><strong>Payoff minimo simulato:</strong> ${risultati.minPayoff.toFixed(2)}</p>
+      <p><strong>Payoff massimo simulato:</strong> ${risultati.maxPayoff.toFixed(2)}</p>
+      <p><strong>Break-even approssimativi:</strong> ${risultati.breakEvenText}</p>
+
+      <p>
+        Il grafico mostra il payoff complessivo ottenuto sommando i payoff
+        delle singole opzioni inserite nel portafoglio.
+      </p>
+    `;
+  }
+}
+
+function calcolaRisultatiPayoff() {
+  const range = generaRangePrezzi();
+  const payoffValues = range.map(ST => payoffTotalePortfolio(portfolioOptions, ST));
+
+  const minPayoff = Math.min(...payoffValues);
+  const maxPayoff = Math.max(...payoffValues);
+
+  const breakEven = [];
+
+  for (let i = 1; i < payoffValues.length; i++) {
+    if (
+      payoffValues[i - 1] === 0 ||
+      payoffValues[i] === 0 ||
+      payoffValues[i - 1] * payoffValues[i] < 0
+    ) {
+      breakEven.push(range[i].toFixed(2));
+    }
+  }
+
+  return {
+    minPayoff,
+    maxPayoff,
+    breakEvenText: breakEven.length > 0 ? breakEven.join(", ") : "nessuno nel range simulato"
+  };
+}
+
+function generaRangePrezzi() {
+  let minStrike = 50;
+  let maxStrike = 150;
+
+  if (portfolioOptions.length > 0) {
+    const strikes = portfolioOptions.map(opt => opt.strike);
+    minStrike = Math.min(...strikes) * 0.5;
+    maxStrike = Math.max(...strikes) * 1.5;
+  }
+
+  const range = [];
+  const steps = 160;
+
+  for (let i = 0; i <= steps; i++) {
+    const ST = minStrike + (i / steps) * (maxStrike - minStrike);
+    range.push(ST);
+  }
+
+  return range;
+}
+
+function disegnaPayoffPortfolio() {
+  const canvas = document.getElementById("payoff-canvas");
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const range = generaRangePrezzi();
+  const payoffValues = range.map(ST => payoffTotalePortfolio(portfolioOptions, ST));
+
+  const padding = 50;
+  const minX = Math.min(...range);
+  const maxX = Math.max(...range);
+  const minY = Math.min(...payoffValues, 0);
+  const maxY = Math.max(...payoffValues, 0);
+
+  const scaleX = (canvas.width - 2 * padding) / (maxX - minX);
+  const scaleY = (canvas.height - 2 * padding) / (maxY - minY || 1);
+
+  function xToCanvas(x) {
+    return padding + (x - minX) * scaleX;
+  }
+
+  function yToCanvas(y) {
+    return canvas.height - padding - (y - minY) * scaleY;
+  }
+
+  // sfondo
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // assi
+  ctx.strokeStyle = "#466653";
+  ctx.lineWidth = 1.2;
+
+  ctx.beginPath();
+  ctx.moveTo(padding, yToCanvas(0));
+  ctx.lineTo(canvas.width - padding, yToCanvas(0));
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(xToCanvas(minX), padding);
+  ctx.lineTo(xToCanvas(minX), canvas.height - padding);
+  ctx.stroke();
+
+  // linea payoff
+  ctx.strokeStyle = "#2f5d44";
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+
+  for (let i = 0; i < payoffValues.length; i++) {
+    const x = xToCanvas(range[i]);
+    const y = yToCanvas(payoffValues[i]);
+
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+
+  ctx.stroke();
+
+  // label
+  ctx.fillStyle = "#244535";
+  ctx.font = "14px Arial";
+  ctx.fillText("Prezzo sottostante S_T", canvas.width / 2 - 70, canvas.height - 12);
+  ctx.fillText("Payoff", 12, 24);
+}
